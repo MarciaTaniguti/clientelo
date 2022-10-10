@@ -8,11 +8,10 @@ public class Pedido {
     private String categoria;
     private String produto;
     private String cliente;
-
     private BigDecimal preco;
     private int quantidade;
-
     private LocalDate data;
+    private BigDecimal total;
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
@@ -21,6 +20,7 @@ public class Pedido {
         this.preco = preco;
         this.quantidade = quantidade;
         this.data = data;
+        this.total = preco.multiply(new BigDecimal(quantidade));
     }
 
     public String getCategoria() {
@@ -47,6 +47,10 @@ public class Pedido {
         return data;
     }
 
+    public BigDecimal getTotal() {
+        return total;
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
@@ -56,6 +60,7 @@ public class Pedido {
                 ", preco=" + preco +
                 ", quantidade=" + quantidade +
                 ", data=" + data +
+                ", total=" + total +
                 '}';
     }
 
