@@ -1,5 +1,7 @@
 package br.com.alura.clientelo;
 
+import jdk.javadoc.doclet.Reporter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -63,5 +65,4 @@ public class Pedido {
                 ", total=" + total +
                 '}';
     }
-
 }

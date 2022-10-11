@@ -21,6 +21,11 @@ public class Main {
             caixaPedidos.registrarPedido(pedidoAtual);
         }
 
+        Relatorio relatorioProdutosMaisVendidos = new RelatorioProdutosMaisVendidos(caixaPedidos, 3);
+        Relatorio relatorioVendaPorCategoria = new RelatorioVendaPorCategoria(caixaPedidos);
+        Relatorio relatorioProdutoMaisCaroPorCategoria = new RelatorioProdutoMaisCaroPorCategoria(caixaPedidos);
+        Relatorio relatorioClienteFieis = new RelatorioClienteFieis(caixaPedidos);
+
         LOGGER.info("##### RELATÓRIO DE VALORES TOTAIS #####");
         LOGGER.info("TOTAL DE PEDIDOS REALIZADOS: {}", caixaPedidos.getTotalDePedidosRealizados());
         LOGGER.info("TOTAL DE PRODUTOS VENDIDOS: {}", caixaPedidos.getTotalDeProdutosVendidos());
@@ -30,6 +35,10 @@ public class Main {
                 , caixaPedidos.getPedidoMaisBarato().getProduto());
         LOGGER.info("PEDIDO MAIS CARO: {} ({})\n", retornaNumeroFormatado(caixaPedidos.getPedidoMaisCaro().getTotal()),
                 caixaPedidos.getPedidoMaisCaro().getProduto());
+        LOGGER.info("PEDIDOS MAIS VENDIDOS: \n{}", relatorioProdutosMaisVendidos.gerarRelatorio());
+        LOGGER.info("RELATÓRIO DE VENDAS POR CATEGORIA:\n{}", relatorioVendaPorCategoria.gerarRelatorio());
+        LOGGER.info("RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA\n{}", relatorioProdutoMaisCaroPorCategoria.gerarRelatorio());
+        LOGGER.info("RELATÓRIO DE CLIENTES FIÉIS\n{}", relatorioClienteFieis.gerarRelatorio());
         LOGGER.info("### FIM DO RELATÓRIO ###");
     }
 

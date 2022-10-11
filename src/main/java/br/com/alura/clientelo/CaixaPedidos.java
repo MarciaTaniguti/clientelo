@@ -1,9 +1,7 @@
 package br.com.alura.clientelo;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CaixaPedidos {
 	private Set<Pedido> pedidos;
@@ -59,6 +57,8 @@ public class CaixaPedidos {
 		}
 	}
 
+
+
 	private void atualizaMontanteDeVendas(Pedido pedido) {
 		montanteDeVendas = montanteDeVendas.add(pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())));
 	}
@@ -90,6 +90,4 @@ public class CaixaPedidos {
 	public Set<String> getCategorias() {
 		return Collections.unmodifiableSet(categorias);
 	}
-
-
 }
