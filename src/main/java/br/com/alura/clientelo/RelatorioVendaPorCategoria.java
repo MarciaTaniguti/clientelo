@@ -3,22 +3,30 @@ package br.com.alura.clientelo;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class RelatorioVendaPorCategoria extends Relatorio{
+public class RelatorioVendaPorCategoria {
+	private static final String TITULO = "VENDAS POR CATEGORIA:";
+	private List<Item> itens;
+	private CaixaPedidos caixaPedidos;
+	private RelatorioCommon relatorioCommon;
+	private List<String> categorias;
+
 	public RelatorioVendaPorCategoria(CaixaPedidos caixaPedidos) {
-		super(caixaPedidos);
+		this.caixaPedidos = caixaPedidos;
+		this.categorias = new ArrayList<>(caixaPedidos.getCategorias());
+		this.itens = new ArrayList<>();
+		this.relatorioCommon = new RelatorioCommon();
 	}
 
-	@Override
 	public String gerarRelatorio() {
-		CaixaPedidos caixaPedidos = super.getCaixaPedidos();
-
 		if (caixaPedidos == null || caixaPedidos.getCategorias() == null || caixaPedidos.getCategorias().size() <1) {
 			return null;
 		}
 
-		List<String> categorias = new ArrayList<>(super.getCategorias());
+		Collections.sort(categorias);
+
 		for (String categoria : categorias) {
 			Item item = new Item(categoria);
 			for (Pedido pedido : caixaPedidos.getPedidos()) {
@@ -26,9 +34,9 @@ public class RelatorioVendaPorCategoria extends Relatorio{
 					item.addVenda(pedido.getQuantidade(), pedido.getPreco());
 				}
 			}
-			super.addItem(item);
+			itens.add(item);
 		}
-		return super.formatedItemList();
+		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
 	private class Item {

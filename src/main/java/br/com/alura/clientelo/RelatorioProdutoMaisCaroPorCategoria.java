@@ -2,24 +2,29 @@ package br.com.alura.clientelo;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class RelatorioProdutoMaisCaroPorCategoria extends Relatorio{
+public class RelatorioProdutoMaisCaroPorCategoria {
+	private static final String TITULO = "PRODUTOS MAIS CAROS DE CADA CATEGORIA:";
+	private List<Item> itens;
+	private CaixaPedidos caixaPedidos;
+	private List<String> categorias;
+	private RelatorioCommon relatorioCommon;
 
 	public RelatorioProdutoMaisCaroPorCategoria(CaixaPedidos caixaPedidos) {
-		super(caixaPedidos);
+		this.caixaPedidos = caixaPedidos;
+		this.categorias = new ArrayList<>(caixaPedidos.getCategorias());
+		this.itens = new ArrayList<>();
+		this.relatorioCommon = new RelatorioCommon();
 	}
 
-	@Override
 	public String gerarRelatorio() {
-		CaixaPedidos caixaPedidos = super.getCaixaPedidos();
-
 		if (caixaPedidos.getPedidos().size() < 1) {
 			return null;
 		}
 
-		List<String> categorias = new ArrayList<>(super.getCategorias());
+		Collections.sort(categorias);
+
 		for (String categoria : categorias) {
 			Item item = new Item(categoria);
 			for (Pedido pedido : caixaPedidos.getPedidos()) {
@@ -28,10 +33,9 @@ public class RelatorioProdutoMaisCaroPorCategoria extends Relatorio{
 					item.produto=pedido.getProduto();
 				}
 			}
-			super.addItem(item);
+			itens.add(item);
 		}
-
-		return super.formatedItemList();
+		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
 	private class Item {

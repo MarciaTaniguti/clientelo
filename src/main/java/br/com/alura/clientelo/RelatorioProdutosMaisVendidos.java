@@ -5,21 +5,22 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class RelatorioProdutosMaisVendidos extends Relatorio{
+public class RelatorioProdutosMaisVendidos {
+	private static final String TITULO = "PEDIDOS MAIS VENDIDOS:";
+	private List<Item> itens;
+	private CaixaPedidos caixaPedidos;
+	private RelatorioCommon relatorioCommon;
 	private int quantidade;
 
-	private RelatorioProdutosMaisVendidos(CaixaPedidos caixaPedidos) {
-		super(caixaPedidos);
-	}
-
 	public RelatorioProdutosMaisVendidos(CaixaPedidos caixaPedidos, int quantidade) {
-		super(caixaPedidos);
+		this.caixaPedidos=caixaPedidos;
+		itens = new ArrayList<>();
+		relatorioCommon = new RelatorioCommon();
 		this.quantidade = quantidade;
 	}
 
-	@Override
 	public String gerarRelatorio() {
-		List<Pedido> pedidos = new ArrayList<>(super.getCaixaPedidos().getPedidos());
+		List<Pedido> pedidos = new ArrayList<>(caixaPedidos.getPedidos());
 
 		if ((quantidade < 1 || pedidos.size() < 1) && quantidade <= pedidos.size()) {
 			return null;
@@ -28,13 +29,13 @@ public class RelatorioProdutosMaisVendidos extends Relatorio{
 		ordenarDescrescentePorQuantidade(pedidos);
 		mapearResultado(pedidos.subList(0,quantidade));
 
-		return super.formatedItemList();
+		return relatorioCommon.formatedItemList(TITULO,itens);
 	}
 
 	private void mapearResultado(List<Pedido> pedidos) {
 		for (Pedido pedido : pedidos) {
 			Item item = new Item(pedido.getProduto(), pedido.getQuantidade());
-			super.addItem(item);
+			itens.add(item);
 		}
 	}
 

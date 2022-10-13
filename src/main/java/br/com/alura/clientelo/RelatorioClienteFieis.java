@@ -5,34 +5,36 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class RelatorioClienteFieis extends Relatorio{
+public class RelatorioClienteFieis {
+	private static final String TITULO = "CLIENTES FIÉIS:";
+	private List<Item> itens;
+	private CaixaPedidos caixaPedidos;
+	private RelatorioCommon relatorioCommon;
 
 	public RelatorioClienteFieis(CaixaPedidos caixaPedidos) {
-		super(caixaPedidos);
+		this.caixaPedidos = caixaPedidos;
+		this.relatorioCommon = new RelatorioCommon();
+		this.itens = new ArrayList<>();
 	}
 
-	@Override
 	public String gerarRelatorio() {
-		List<Item> itemList = new ArrayList<>();
-
-		for (Pedido pedido : super.getCaixaPedidos().getPedidos()) {
+		for (Pedido pedido : caixaPedidos.getPedidos()) {
 			boolean ehNovoCliente = true;
-			for (int i=0; i<itemList.size();i++) {
-				if (itemList.get(i).nomeCliente.equals(pedido.getCliente())) {
-					itemList.get(i).addPedido(pedido.getQuantidade());
+			for (Item iten : itens) {
+				if (iten.nomeCliente.equals(pedido.getCliente())) {
+					iten.addPedido(pedido.getQuantidade());
 					ehNovoCliente = false;
 					break;
 				}
 			}
 			if (ehNovoCliente) {
 				Item novoItem = new Item(pedido.getCliente());
-				itemList.add(novoItem);
+				itens.add(novoItem);
 			}
 		}
-		ordenarLista(itemList);
+		ordenarLista(itens);
 
-		super.addItem(itemList);
-		return super.formatedItemList();
+		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
 	private void ordenarLista(List<Item> itemList) {
