@@ -5,13 +5,14 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class RelatorioVendaPorCategoria {
 	private static final String TITULO = "VENDAS POR CATEGORIA:";
-	private List<Item> itens;
-	private CaixaPedidos caixaPedidos;
-	private RelatorioCommon relatorioCommon;
-	private List<String> categorias;
+	private final List<Item> itens;
+	private final CaixaPedidos caixaPedidos;
+	private final RelatorioCommon relatorioCommon;
+	private final List<String> categorias;
 
 	public RelatorioVendaPorCategoria(CaixaPedidos caixaPedidos) {
 		this.caixaPedidos = caixaPedidos;
@@ -27,20 +28,19 @@ public class RelatorioVendaPorCategoria {
 
 		Collections.sort(categorias);
 
-		for (String categoria : categorias) {
+		categorias.forEach(categoria -> {
 			Item item = new Item(categoria);
-			for (Pedido pedido : caixaPedidos.getPedidos()) {
-				if (pedido.getCategoria().equals(categoria)) {
-					item.addVenda(pedido.getQuantidade(), pedido.getPreco());
-				}
-			}
+			caixaPedidos.getPedidos().stream()
+					.filter(pedido -> categoria.equals(pedido.getCategoria()))
+					.forEach(pedido -> item.addVenda(pedido.getQuantidade(), pedido.getPreco()));
 			itens.add(item);
-		}
+		});
+
 		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
-	private class Item {
-		private String categoria;
+	private static class Item {
+		private final String categoria;
 		private int qtdVendida = 0;
 		private BigDecimal montante = BigDecimal.ZERO;
 
@@ -55,9 +55,9 @@ public class RelatorioVendaPorCategoria {
 
 		@Override
 		public String toString() {
-			return "CATEGORIA: ".concat(categoria)
-					.concat("\nQUANTIDADE VENDIDA: ".concat(String.valueOf(qtdVendida)
-							.concat("\nMONTANTE: ").concat(NumberFormat.getCurrencyInstance().format(montante)).concat("\n")));
+			return "CATEGORIA: " + categoria + "\n" +
+					"QUANTIDADE VENDIDA: " + qtdVendida + "\n" +
+					"MONTANTE: " + NumberFormat.getCurrencyInstance().format(montante);
 		}
 	}
 }

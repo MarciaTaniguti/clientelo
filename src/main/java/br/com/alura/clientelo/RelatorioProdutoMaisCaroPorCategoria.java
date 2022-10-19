@@ -6,10 +6,10 @@ import java.util.*;
 
 public class RelatorioProdutoMaisCaroPorCategoria {
 	private static final String TITULO = "PRODUTOS MAIS CAROS DE CADA CATEGORIA:";
-	private List<Item> itens;
-	private CaixaPedidos caixaPedidos;
-	private List<String> categorias;
-	private RelatorioCommon relatorioCommon;
+	private final List<Item> itens;
+	private final CaixaPedidos caixaPedidos;
+	private final List<String> categorias;
+	private final RelatorioCommon relatorioCommon;
 
 	public RelatorioProdutoMaisCaroPorCategoria(CaixaPedidos caixaPedidos) {
 		this.caixaPedidos = caixaPedidos;
@@ -24,22 +24,19 @@ public class RelatorioProdutoMaisCaroPorCategoria {
 		}
 
 		Collections.sort(categorias);
-
-		for (String categoria : categorias) {
+		categorias.stream().forEach(categoria -> {
 			Item item = new Item(categoria);
-			for (Pedido pedido : caixaPedidos.getPedidos()) {
-				if (pedido.getCategoria().equals(categoria) && pedido.getPreco().compareTo(item.preco) == 1) {
-					item.preco=pedido.getPreco();
-					item.produto=pedido.getProduto();
-				}
-			}
+			caixaPedidos.getPedidos().stream()
+					.filter(pedido -> Objects.equals(pedido.getCategoria(), categoria)
+							&& pedido.getPreco().compareTo(item.preco) == 1)
+					.forEach(pedido -> item.atualizaItem(pedido.getProduto(), pedido.getPreco()));
 			itens.add(item);
-		}
+		});
 		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
-	private class Item {
-		private String categoria;
+	private static class Item {
+		private final String categoria;
 		private String produto = null;
 		private BigDecimal preco = BigDecimal.ZERO;
 
@@ -47,11 +44,16 @@ public class RelatorioProdutoMaisCaroPorCategoria {
 			this.categoria = categoria;
 		}
 
+		public void atualizaItem(String produto, BigDecimal preco) {
+			this.produto = produto;
+			this.preco = preco;
+		}
+
 		@Override
 		public String toString() {
-			return "CATEGORIA: ".concat(categoria)
-					.concat("\nPRODUTO: ".concat(produto))
-					.concat("\nPREÇO: ").concat(NumberFormat.getCurrencyInstance().format(preco)).concat("\n");
+			return "CATEGORIA: " + categoria + "\n" +
+					"PRODUTO: " + produto + "\n" +
+					"PREÇO: " + NumberFormat.getCurrencyInstance().format(preco);
 		}
 	}
 }

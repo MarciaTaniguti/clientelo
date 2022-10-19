@@ -7,10 +7,10 @@ import java.util.List;
 
 public class RelatorioProdutosMaisVendidos {
 	private static final String TITULO = "PEDIDOS MAIS VENDIDOS:";
-	private List<Item> itens;
-	private CaixaPedidos caixaPedidos;
-	private RelatorioCommon relatorioCommon;
-	private int quantidade;
+	private final List<Item> itens;
+	private final CaixaPedidos caixaPedidos;
+	private final RelatorioCommon relatorioCommon;
+	private final int quantidade;
 
 	public RelatorioProdutosMaisVendidos(CaixaPedidos caixaPedidos, int quantidade) {
 		this.caixaPedidos=caixaPedidos;
@@ -33,23 +33,15 @@ public class RelatorioProdutosMaisVendidos {
 	}
 
 	private void mapearResultado(List<Pedido> pedidos) {
-		for (Pedido pedido : pedidos) {
-			Item item = new Item(pedido.getProduto(), pedido.getQuantidade());
-			itens.add(item);
-		}
+		pedidos.forEach(pedido -> itens.add(new Item(pedido.getProduto(), pedido.getQuantidade())));
 	}
 
 	private void ordenarDescrescentePorQuantidade(List<Pedido> pedidos) {
-		Collections.sort(pedidos, new Comparator<Pedido>() {
-			@Override
-			public int compare(Pedido pedido, Pedido pedidoComparado) {
-				return pedido.getQuantidade() > pedidoComparado.getQuantidade() ? 1 : -1;
-			}
-		});
+		pedidos.sort((pedido, pedidoComparado) -> pedido.getQuantidade() > pedidoComparado.getQuantidade() ? 1 : -1);
 		Collections.reverse(pedidos);
 	}
 
-	private class Item {
+	private static class Item {
 		String produto;
 		int quantidade;
 
@@ -60,8 +52,8 @@ public class RelatorioProdutosMaisVendidos {
 
 		@Override
 		public String toString() {
-			return "PRODUTO: ".concat(produto)
-					.concat("\nQUANTIDADE: ").concat(String.valueOf(quantidade));
+			return "PRODUTO: " + produto + "\n" +
+					"QUANTIDADE: " + quantidade;
 		}
 	}
 }

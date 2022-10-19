@@ -11,6 +11,7 @@ public class Relatorio {
 		RelatorioVendaPorCategoria vendaPorCategoria = new RelatorioVendaPorCategoria(caixaPedidos);
 		RelatorioProdutoMaisCaroPorCategoria produtoMaisCaroPorCategoria = new RelatorioProdutoMaisCaroPorCategoria(caixaPedidos);
 		RelatorioClienteFieis clienteFieis = new RelatorioClienteFieis(caixaPedidos);
+		RelatorioClientesMaisLucrativos clientesMaisLucrativos = new RelatorioClientesMaisLucrativos(caixaPedidos, 2);
 
 		LOGGER.info("##### RELATÓRIO DE VALORES TOTAIS #####");
 		LOGGER.info("TOTAL DE PEDIDOS REALIZADOS: {}", caixaPedidos.getTotalDePedidosRealizados());
@@ -25,6 +26,7 @@ public class Relatorio {
 		LOGGER.info(vendaPorCategoria.gerarRelatorio());
 		LOGGER.info(produtoMaisCaroPorCategoria.gerarRelatorio());
 		LOGGER.info(clienteFieis.gerarRelatorio());
+		LOGGER.info(clientesMaisLucrativos.gerarRelatorio());
 		LOGGER.info("### FIM DO RELATÓRIO ###");
 	}
 }
