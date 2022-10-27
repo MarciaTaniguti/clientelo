@@ -1,16 +1,21 @@
-package br.com.alura.clientelo;
+package br.com.alura.clientelo.relatorio;
 
+import br.com.alura.clientelo.*;
+import br.com.alura.clientelo.relatorio.clientesFieis.RelatorioClientesFieis;
+import br.com.alura.clientelo.relatorio.produtosmaiscarosporcategoria.RelatorioProdutosMaisCaroPorCategoria;
+import br.com.alura.clientelo.relatorio.produtosmaisvendidos.RelatorioProdutosMaisVendidos;
+import br.com.alura.clientelo.relatorio.vendaporcategoria.RelatorioVendaPorCategoria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Relatorio {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Relatorio.class);
+public class RelatorioCompleto {
+	private static final Logger LOGGER = LoggerFactory.getLogger(RelatorioCompleto.class);
 
-	public void gerarRelatorio(CaixaPedidos caixaPedidos) {
-		RelatorioProdutosMaisVendidos produtosMaisVendidos = new RelatorioProdutosMaisVendidos(caixaPedidos, 3);
+	public void exibirRelatorioCompleto(CaixaPedidos caixaPedidos) {
+		RelatorioProdutosMaisVendidos produtosMaisVendidos = new RelatorioProdutosMaisVendidos(caixaPedidos);
 		RelatorioVendaPorCategoria vendaPorCategoria = new RelatorioVendaPorCategoria(caixaPedidos);
-		RelatorioProdutoMaisCaroPorCategoria produtoMaisCaroPorCategoria = new RelatorioProdutoMaisCaroPorCategoria(caixaPedidos);
-		RelatorioClienteFieis clienteFieis = new RelatorioClienteFieis(caixaPedidos);
+		RelatorioProdutosMaisCaroPorCategoria produtoMaisCaroPorCategoria = new RelatorioProdutosMaisCaroPorCategoria(caixaPedidos);
+		RelatorioClientesFieis clienteFieis = new RelatorioClientesFieis(caixaPedidos);
 		RelatorioClientesMaisLucrativos clientesMaisLucrativos = new RelatorioClientesMaisLucrativos(caixaPedidos, 2);
 
 		LOGGER.info("##### RELATÓRIO DE VALORES TOTAIS #####");

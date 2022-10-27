@@ -1,22 +1,23 @@
 package br.com.alura.clientelo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import br.com.alura.clientelo.relatorio.RelatorioCompleto;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 
 public class Main {
-    public static final String PEDIDOS_CSV = "pedidos.csv";
-
     public static void main(String[] args) {
-        Pedido[] pedidos = ProcessadorDeCsv.processaArquivo(PEDIDOS_CSV);
+
+        List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv").stream().toList();
         CaixaPedidos caixaPedidos = new CaixaPedidos();
 
         for (Pedido pedidoAtual : pedidos) {
             caixaPedidos.registrarPedido(pedidoAtual);
         }
 
-        Relatorio relatorio = new Relatorio();
-        relatorio.gerarRelatorio(caixaPedidos);
+        RelatorioCompleto relatorioCompleto = new RelatorioCompleto();
+        relatorioCompleto.exibirRelatorioCompleto(caixaPedidos);
     }
 
 

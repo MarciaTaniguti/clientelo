@@ -4,23 +4,13 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class CaixaPedidos {
-	private Set<Pedido> pedidos;
+	private final Set<Pedido> pedidos = new HashSet<>();
 	private int totalDeProdutosVendidos;
 	private int totalDePedidosRealizados;
-	private BigDecimal montanteDeVendas;
+	private BigDecimal montanteDeVendas = BigDecimal.ZERO;
 	private Pedido pedidoMaisBarato;
 	private Pedido pedidoMaisCaro;
-	private Set<String> categorias;
-
-	public CaixaPedidos() {
-		this.pedidos = new HashSet<>();
-		this.totalDeProdutosVendidos = 0;
-		this.totalDePedidosRealizados = 0;
-		this.montanteDeVendas = BigDecimal.ZERO;
-		this.pedidoMaisBarato = null;
-		this.pedidoMaisCaro = null;
-		this.categorias = new HashSet<>();
-	}
+	private final Set<String> categorias = new HashSet<>();
 
 	public void registrarPedido(Pedido pedido) {
 		if (pedido == null) {
