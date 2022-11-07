@@ -1,4 +1,4 @@
-package br.com.alura.clientelo;
+package br.com.alura.clientelo.model;
 
 import jdk.javadoc.doclet.Reporter;
 
@@ -6,14 +6,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Pedido {
-
-    private String categoria;
-    private String produto;
-    private String cliente;
-    private BigDecimal preco;
-    private int quantidade;
-    private LocalDate data;
-    private BigDecimal total;
+    private final String categoria;
+    private final String produto;
+    private final String cliente;
+    private final BigDecimal preco;
+    private final int quantidade;
+    private final LocalDate data;
+    private final BigDecimal total;
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;

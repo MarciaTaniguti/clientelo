@@ -1,5 +1,7 @@
 package br.com.alura.clientelo.relatorio.clientesFieis;
 
+import br.com.alura.clientelo.model.Pedido;
+
 public class Item {
 	private final String nomeCliente;
 	private int qtdPedidos;
@@ -9,8 +11,10 @@ public class Item {
 		this.qtdPedidos++;
 	}
 
-	public void addPedido(int qtd) {
-		qtdPedidos++;
+	public void addPedido(Pedido pedido) {
+		if (nomeCliente.equals(pedido.getCliente())) {
+			this.qtdPedidos++;
+		}
 	}
 
 	@Override

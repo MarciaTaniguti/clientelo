@@ -1,11 +1,14 @@
 package br.com.alura.clientelo;
 
+import br.com.alura.clientelo.model.Pedido;
+import br.com.alura.clientelo.relatorio.Relatorio;
+
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class RelatorioClientesMaisLucrativos {
+public class RelatorioClientesMaisLucrativos implements Relatorio {
 	private static final String TITULO = "CLIENTES MAIS LUCRATIVOS:";
 	private final CaixaPedidos caixaPedidos;
 	private final RelatorioCommon relatorioCommon;

@@ -1,13 +1,14 @@
 package br.com.alura.clientelo.relatorio.produtosmaisvendidos;
 
 import br.com.alura.clientelo.CaixaPedidos;
-import br.com.alura.clientelo.Pedido;
+import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.RelatorioCommon;
+import br.com.alura.clientelo.relatorio.Relatorio;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class RelatorioProdutosMaisVendidos {
+public class RelatorioProdutosMaisVendidos implements Relatorio {
 	private static final String TITULO = "PRODUTOS MAIS VENDIDOS:";
 	private final List<Item> itens;
 	private final CaixaPedidos caixaPedidos;

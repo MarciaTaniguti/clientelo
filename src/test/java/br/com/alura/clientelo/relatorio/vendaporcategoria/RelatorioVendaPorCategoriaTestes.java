@@ -1,8 +1,7 @@
 package br.com.alura.clientelo.relatorio.vendaporcategoria;
 
 import br.com.alura.clientelo.CaixaPedidos;
-import br.com.alura.clientelo.Pedido;
-import br.com.alura.clientelo.ProcessadorDeCsv;
+import br.com.alura.clientelo.model.Pedido;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

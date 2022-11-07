@@ -1,15 +1,14 @@
 package br.com.alura.clientelo.relatorio.clientesFieis;
 
 import br.com.alura.clientelo.CaixaPedidos;
-import br.com.alura.clientelo.Pedido;
+import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.RelatorioCommon;
+import br.com.alura.clientelo.relatorio.Relatorio;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class RelatorioClientesFieis {
+public class RelatorioClientesFieis implements Relatorio {
 	private static final String TITULO = "CLIENTES FIÉIS:";
 	private final List<Item> itens;
 	private final CaixaPedidos caixaPedidos;
@@ -22,11 +21,13 @@ public class RelatorioClientesFieis {
 	}
 
 	public String gerarRelatorio() {
+		caixaPedidos.getPedidos().stream().forEach(pedido -> itens.stream().forEach(item -> item.addPedido(pedido)));
+
 		for (Pedido pedido : caixaPedidos.getPedidos()) {
 			boolean ehNovoCliente = true;
-			for (Item iten : itens) {
-				if (iten.getNomeCliente().equals(pedido.getCliente())) {
-					iten.addPedido(pedido.getQuantidade());
+			for (Item item : itens) {
+				if (item.getNomeCliente().equals(pedido.getCliente())) {
+					item.addPedido(pedido);
 					ehNovoCliente = false;
 					break;
 				}
@@ -41,7 +42,7 @@ public class RelatorioClientesFieis {
 		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
-	private void ordenarLista(List<Item> itemList) {
+	private void ordenarLista(List<Item> itemList) {  //TODO - refactor
 		itemList.sort((o1, o2) -> {
 			int resultComp = Integer.compare(o2.getQtdPedidos(), o1.getQtdPedidos());
 
