@@ -10,21 +10,24 @@ public class ItemPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "preco_unitario")
-	private BigDecimal precoUnitario;
-	private Long quantidade;
+	private final BigDecimal precoUnitario;
+	private final Long quantidade;
 	@ManyToOne
-	private Produto produto;
+	private final Produto produto;
+	@ManyToOne
+	private Pedido pedido;
 	private BigDecimal desconto;
-	@Column(name = "tipo_desconto")
 	@Enumerated(EnumType.STRING)
-	private TipoDescontoItemPedido tipoDesconto;
+	@Column(name = "tipo_desconto")
+	private final TipoDescontoItemPedido tipoDesconto;
 
-	public ItemPedido(BigDecimal precoUnitario, Long quantidade, Produto produto, BigDecimal desconto, TipoDescontoItemPedido tipoDesconto) {
-		this.precoUnitario = precoUnitario;
+	public ItemPedido(Long quantidade, Produto produto, Pedido pedido, BigDecimal desconto, TipoDescontoItemPedido tipoDesconto) {
 		this.quantidade = quantidade;
 		this.produto = produto;
-		this.desconto = desconto;
+		this.pedido = pedido;
 		this.tipoDesconto = tipoDesconto;
+		this.precoUnitario = produto.getPreco();
+		this.setDesconto(desconto);
 	}
 
 	public Long getId() {
@@ -49,5 +52,16 @@ public class ItemPedido {
 
 	public TipoDescontoItemPedido getTipoDesconto() {
 		return tipoDesconto;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public void setDesconto(BigDecimal desconto) {
+		if (desconto.compareTo(new BigDecimal("0.81")) > 0) {
+			throw new RuntimeException("Não é possível ter um desconto acima de 80%");
+		}
+		this.desconto = desconto;
 	}
 }

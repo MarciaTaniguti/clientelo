@@ -13,17 +13,17 @@ public class Produto {
 	private Long id;
 	@NotNull
 	@Column(nullable = false)
-	private String nome;
-	private String descricao;
+	private final String nome;
+	private final String descricao;
 	@NotNull
 	@Column(name = "quantidade_estoque", nullable = false)
-	private Integer quantidadeEstoque;
+	private final Integer quantidadeEstoque;
 	@OneToOne
 	@JoinColumn(name = "categoria", referencedColumnName = "id")
 	private Categoria categoria;
 	@NotNull
 	@Column(nullable = false)
-	private BigDecimal preco;
+	private final BigDecimal preco;
 
 	public Produto(String nome, String descricao, Integer quantidadeEstoque, Categoria categoria, BigDecimal preco) {
 		this.nome = nome;
@@ -37,32 +37,20 @@ public class Produto {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getNome() {
 		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public Integer getQuantidadeEstoque() {
 		return quantidadeEstoque;
 	}
 
-	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
+	public BigDecimal getPreco() {
+		return preco;
 	}
 
 	public Categoria getCategoria() {

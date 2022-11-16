@@ -5,24 +5,25 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "ENDERECO")
 public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
 	@Column(nullable = false)
-	private String rua;
+	private final String rua;
 	@NotNull
 	@Column(nullable = false)
-	private String numero;
-	private String complemento;
-	private String bairro;
+	private final String numero;
+	private final String complemento;
+	private final String bairro;
 	@NotNull
 	@Column(nullable = false)
-	private String cidade;
+	private final String cidade;
 	@NotNull
 	@Column(nullable = false)
-	private String estado;
+	private final String estado;
 
 	public Endereco(String rua, String numero, String complemento, String bairro, String cidade, String estado) {
 		this.rua = rua;

@@ -40,8 +40,8 @@ public class ClienteDao {
 		String jpql = "SELECT c FROM " +
 				CLIENTE +
 				" c WHERE c.nome = :nome";
-		return em.createQuery(jpql, Cliente.class)
+		return Optional.ofNullable(em.createQuery(jpql, Cliente.class)
 				.setParameter("nome", nome)
-				.getResultList().stream().findFirst();
+				.getSingleResult());
 	}
 }

@@ -3,8 +3,7 @@ package br.com.alura.clientelo.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,23 +14,22 @@ public class Pedido {
     private Long id;
     private final LocalDate data;
     @ManyToOne
-    private final Cliente cliente;
+    private Cliente cliente;
     private BigDecimal desconto;
-    @Column(name = "tipo_desconto")
     @Enumerated(EnumType.STRING)
-    private TipoDescontoPedido tipoDesconto;
-    @Column(name = "item_pedido")
-    @OneToMany(mappedBy = "id")
-    private List<ItemPedido> itemPedido;
+    @Column(name = "tipo_desconto")
+    private final TipoDescontoPedido tipoDesconto;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItemPedido> itens = new ArrayList<>();
     //private final BigDecimal total;
 
 
-    public Pedido(Cliente cliente, BigDecimal desconto, TipoDescontoPedido tipoDesconto, List<ItemPedido> itemPedido) {
+    public Pedido(Cliente cliente, BigDecimal desconto, TipoDescontoPedido tipoDesconto, List<ItemPedido> itens) {
         this.cliente = cliente;
-        this.desconto = desconto;
         this.tipoDesconto = tipoDesconto;
-        this.itemPedido = itemPedido;
+        this.itens = itens;
         this.data = LocalDate.now();
+        this.setDesconto(desconto);
     }
 
     public Long getId() {
@@ -54,8 +52,24 @@ public class Pedido {
         return tipoDesconto;
     }
 
-    public List<ItemPedido> getItemPedido() {
-        return itemPedido;
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void addItemPedido(ItemPedido itemPedido) {
+        this.itens.add(itemPedido);
+        itemPedido.setPedido(this);
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setDesconto(BigDecimal desconto) {
+        if (desconto.compareTo(new BigDecimal("0.81")) > 0) {
+            throw new RuntimeException("Não é possível ter um desconto acima de 80%");
+        }
+        this.desconto = desconto;
     }
 
     @Override

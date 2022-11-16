@@ -3,9 +3,12 @@ package br.com.alura.clientelo.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "CLIENTE")
 public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +25,19 @@ public class Cliente {
 	@NotNull
 	@OneToOne
 	private Endereco endereco;
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente(String nome, String cpf, String telefone, Endereco endereco) {
+		this(nome,cpf,telefone,endereco,null);
+	}
+
+	public Cliente(String nome, String cpf, String telefone, Endereco endereco, List<Pedido> pedidos) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.endereco = endereco;
+		this.pedidos = pedidos;
 	}
 
 	public Long getId() {
@@ -48,6 +58,39 @@ public class Cliente {
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public void addPedido(Pedido pedido) {
+		this.pedidos.add(pedido);
+		pedido.setCliente(this);
 	}
 
 	@Override
