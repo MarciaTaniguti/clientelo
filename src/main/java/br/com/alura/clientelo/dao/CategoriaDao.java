@@ -1,12 +1,22 @@
 package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.model.Categoria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Optional;
 
 public class CategoriaDao {
-	private final EntityManager em;
+	private EntityManager em;
+	private static final String CATEGORIA = Categoria.class.getName();
+	private static final Logger LOG = LoggerFactory.getLogger(CategoriaDao.class);
+
+	@Deprecated()
+	public CategoriaDao() {
+	}
 
 	public CategoriaDao(EntityManager em) {
 		this.em = em;
@@ -18,6 +28,20 @@ public class CategoriaDao {
 
 	public void cadastra(Categoria categoria) {
 		this.em.persist(categoria);
+	}
+
+	public Optional<Categoria> buscaPorNome(String nome) {
+		String jpql = "SELECT c FROM " +
+				CATEGORIA + " c where c.nome = :nome";
+		Optional<Categoria> categoria = Optional.empty();
+		try {
+			return Optional.of(em.createQuery(jpql, Categoria.class)
+					.setParameter("nome", nome)
+					.getSingleResult());
+		}
+		catch (NoResultException exp) {
+			return categoria;
+		}
 	}
 
 	public void atualizaCategoria(Categoria categoria) {
