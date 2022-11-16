@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 public class CategoriaDaoTestes {
 
@@ -64,11 +65,14 @@ public class CategoriaDaoTestes {
 
 	@Test
 	public void deveAtualizarStatusCategoria() {
-		Categoria categoria = new Categoria("pet");
-
-		categoriaDao.cadastra(categoria);
-		em.flush();
-
+		Categoria categoria = new Categoria("PET");
+		Optional<Categoria> buscaCategoriaPet = categoriaDao.buscaPorNome(categoria.getNome());
+		if (!buscaCategoriaPet.isPresent()) {
+			categoriaDao.cadastra(categoria);
+			em.flush();
+		} else {
+			categoria = buscaCategoriaPet.get();
+		}
 		categoria.setStatus(StatusCategoria.INATIVA);
 		categoriaDao.atualizaCategoria(categoria);
 		em.getTransaction().commit();

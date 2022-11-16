@@ -11,11 +11,16 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String nome;
 	@NotNull
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private StatusCategoria status;
+
+	@Deprecated
+	public Categoria() {
+	}
 
 	public Categoria(String nome) {
 		this.nome = nome;
