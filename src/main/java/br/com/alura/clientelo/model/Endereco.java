@@ -12,18 +12,22 @@ public class Endereco {
 	private Long id;
 	@NotNull
 	@Column(nullable = false)
-	private final String rua;
+	private String rua;
 	@NotNull
 	@Column(nullable = false)
-	private final String numero;
-	private final String complemento;
-	private final String bairro;
+	private String numero;
+	private String complemento;
+	private String bairro;
 	@NotNull
 	@Column(nullable = false)
-	private final String cidade;
+	private String cidade;
 	@NotNull
 	@Column(nullable = false)
-	private final String estado;
+	private String estado;
+
+	@Deprecated
+	public Endereco() {
+	}
 
 	public Endereco(String rua, String numero, String complemento, String bairro, String cidade, String estado) {
 		this.rua = rua;

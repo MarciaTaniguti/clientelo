@@ -9,7 +9,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class CategoriaDao {
+public class CategoriaDao {  //criar uma interface que tenha o contrato basico dos daos, CRUD
 	private EntityManager em;
 	private static final String CATEGORIA = Categoria.class.getName();
 	private static final Logger LOG = LoggerFactory.getLogger(CategoriaDao.class);
@@ -31,6 +31,8 @@ public class CategoriaDao {
 	}
 
 	public Optional<Categoria> buscaPorNome(String nome) {
+		//begin
+		//commit
 		String jpql = "SELECT c FROM " +
 				CATEGORIA + " c where c.nome = :nome";
 		Optional<Categoria> categoria = Optional.empty();

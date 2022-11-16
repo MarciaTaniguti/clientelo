@@ -67,7 +67,7 @@ public class CategoriaDaoTestes {
 	public void deveAtualizarStatusCategoria() {
 		Categoria categoria = new Categoria("PET");
 		Optional<Categoria> buscaCategoriaPet = categoriaDao.buscaPorNome(categoria.getNome());
-		if (!buscaCategoriaPet.isPresent()) {
+		if (buscaCategoriaPet.isEmpty()) {
 			categoriaDao.cadastra(categoria);
 			em.flush();
 		} else {
@@ -79,4 +79,7 @@ public class CategoriaDaoTestes {
 
 		Assertions.assertEquals(categoria.getStatus().name(), categoriaDao.buscaPorId(categoria.getId()).getStatus().name());
 	}
+
+
+
 }

@@ -18,8 +18,7 @@ public class Produto {
 	@NotNull
 	@Column(name = "quantidade_estoque", nullable = false)
 	private final Integer quantidadeEstoque;
-	@OneToOne
-	@JoinColumn(name = "categoria", referencedColumnName = "id")
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Categoria categoria;
 	@NotNull
 	@Column(nullable = false)

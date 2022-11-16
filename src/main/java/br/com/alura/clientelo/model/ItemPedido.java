@@ -20,14 +20,20 @@ public class ItemPedido {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_desconto")
 	private final TipoDescontoItemPedido tipoDesconto;
+	private BigDecimal valorPago;
 
-	public ItemPedido(Long quantidade, Produto produto, Pedido pedido, BigDecimal desconto, TipoDescontoItemPedido tipoDesconto) {
+	public ItemPedido(Long quantidade, Produto produto, BigDecimal desconto, TipoDescontoItemPedido tipoDesconto) {
 		this.quantidade = quantidade;
 		this.produto = produto;
-		this.pedido = pedido;
 		this.tipoDesconto = tipoDesconto;
 		this.precoUnitario = produto.getPreco();
 		this.setDesconto(desconto);
+	}
+
+	private BigDecimal calcularValorGasto() {
+		BigDecimal valorGastoSemDesconto = (precoUnitario.multiply(new BigDecimal(quantidade)));
+		this.valorPago = valorGastoSemDesconto.multiply(new BigDecimal("1").subtract(desconto));
+		return this.valorPago;
 	}
 
 	public Long getId() {
@@ -63,5 +69,24 @@ public class ItemPedido {
 			throw new RuntimeException("Não é possível ter um desconto acima de 80%");
 		}
 		this.desconto = desconto;
+		calcularValorGasto();
+	}
+
+	public BigDecimal getValorPago() {
+		return valorPago;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemPedido{" +
+				"id=" + id +
+				", precoUnitario=" + precoUnitario +
+				", quantidade=" + quantidade +
+				", produto=" + produto +
+				", pedido=" + pedido.getId() +
+				", desconto=" + desconto +
+				", tipoDesconto=" + tipoDesconto +
+				", valorPago=" + valorPago +
+				'}';
 	}
 }

@@ -28,6 +28,10 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Pedido> pedidos = new ArrayList<>();
 
+	@Deprecated
+	public Cliente() {
+	}
+
 	public Cliente(String nome, String cpf, String telefone, Endereco endereco) {
 		this(nome,cpf,telefone,endereco,null);
 	}

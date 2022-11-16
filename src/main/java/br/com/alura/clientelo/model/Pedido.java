@@ -21,15 +21,15 @@ public class Pedido {
     private final TipoDescontoPedido tipoDesconto;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
-    //private final BigDecimal total;
+    private BigDecimal totalGasto;
 
 
     public Pedido(Cliente cliente, BigDecimal desconto, TipoDescontoPedido tipoDesconto, List<ItemPedido> itens) {
         this.cliente = cliente;
         this.tipoDesconto = tipoDesconto;
-        this.itens = itens;
         this.data = LocalDate.now();
-        this.setDesconto(desconto);
+        this.desconto = desconto;
+        itens.stream().forEach(this::addItemPedido);
     }
 
     public Long getId() {
@@ -59,6 +59,7 @@ public class Pedido {
     public void addItemPedido(ItemPedido itemPedido) {
         this.itens.add(itemPedido);
         itemPedido.setPedido(this);
+        calculaTotalGasto();
     }
 
     public void setCliente(Cliente cliente) {
@@ -66,10 +67,20 @@ public class Pedido {
     }
 
     public void setDesconto(BigDecimal desconto) {
-        if (desconto.compareTo(new BigDecimal("0.81")) > 0) {
+        if (desconto.compareTo(new BigDecimal("0.80")) > 0) {
             throw new RuntimeException("Não é possível ter um desconto acima de 80%");
         }
         this.desconto = desconto;
+        calculaTotalGasto();
+    }
+
+    private void calculaTotalGasto() {
+        BigDecimal totalSemDesconto = this.getItens().stream().map(ItemPedido::getValorPago).reduce(BigDecimal.ZERO, BigDecimal::add);
+        this.totalGasto = totalSemDesconto.multiply(new BigDecimal("1").subtract(this.desconto));
+    }
+
+    public BigDecimal getTotalGasto() {
+        return totalGasto;
     }
 
     @Override
@@ -80,6 +91,8 @@ public class Pedido {
                 ", cliente=" + cliente +
                 ", desconto=" + desconto +
                 ", tipoDesconto=" + tipoDesconto +
+                ", itens=" + itens +
+                ", total=" + totalGasto +
                 '}';
     }
 }
