@@ -1,67 +1,71 @@
 package br.com.alura.clientelo.model;
 
-import jdk.javadoc.doclet.Reporter;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.List;
 
+@Entity
+@Table(name = "PEDIDO")
 public class Pedido {
-    private final String categoria;
-    private final String produto;
-    private final String cliente;
-    private final BigDecimal preco;
-    private final int quantidade;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private final LocalDate data;
-    private final BigDecimal total;
+    @ManyToOne
+    private final Cliente cliente;
+    private BigDecimal desconto;
+    @Column(name = "tipo_desconto")
+    @Enumerated(EnumType.STRING)
+    private TipoDescontoPedido tipoDesconto;
+    @Column(name = "item_pedido")
+    @OneToMany(mappedBy = "id")
+    private List<ItemPedido> itemPedido;
+    //private final BigDecimal total;
 
-    public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
-        this.categoria = categoria;
-        this.produto = produto;
+
+    public Pedido(Cliente cliente, BigDecimal desconto, TipoDescontoPedido tipoDesconto, List<ItemPedido> itemPedido) {
         this.cliente = cliente;
-        this.preco = preco;
-        this.quantidade = quantidade;
-        this.data = data;
-        this.total = preco.multiply(new BigDecimal(quantidade));
+        this.desconto = desconto;
+        this.tipoDesconto = tipoDesconto;
+        this.itemPedido = itemPedido;
+        this.data = LocalDate.now();
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public String getProduto() {
-        return produto;
-    }
-
-    public String getCliente() {
-        return cliente;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
+    public Long getId() {
+        return id;
     }
 
     public LocalDate getData() {
         return data;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public BigDecimal getDesconto() {
+        return desconto;
+    }
+
+    public TipoDescontoPedido getTipoDesconto() {
+        return tipoDesconto;
+    }
+
+    public List<ItemPedido> getItemPedido() {
+        return itemPedido;
     }
 
     @Override
     public String toString() {
         return "Pedido{" +
-                "categoria='" + categoria + '\'' +
-                ", produto='" + produto + '\'' +
-                ", cliente='" + cliente + '\'' +
-                ", preco=" + preco +
-                ", quantidade=" + quantidade +
+                "id=" + id +
                 ", data=" + data +
-                ", total=" + total +
+                ", cliente=" + cliente +
+                ", desconto=" + desconto +
+                ", tipoDesconto=" + tipoDesconto +
                 '}';
     }
 }

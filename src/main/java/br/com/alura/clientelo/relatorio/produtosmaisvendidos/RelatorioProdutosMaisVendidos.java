@@ -28,7 +28,7 @@ public class RelatorioProdutosMaisVendidos implements Relatorio {
 			limite = pedidos.size();
 		}
 
-		ordenarDescrescentePorQuantidade(pedidos);
+		//ordenarDescrescentePorQuantidade(pedidos);  //TODO
 		return itens;
 	}
 
@@ -37,14 +37,14 @@ public class RelatorioProdutosMaisVendidos implements Relatorio {
 		return relatorioCommon.formatedItemList(TITULO,itens);
 	}
 
-	private void mapearResultado(List<Pedido> pedidos) {
-		pedidos.forEach(pedido -> itens.add(new Item(pedido.getProduto(), pedido.getQuantidade())));
-	}
-
-	private void ordenarDescrescentePorQuantidade(List<Pedido> pedidos) {
-		pedidos.stream().collect(Collectors.groupingBy(Pedido::getProduto,
-						Collectors.summingInt(Pedido::getQuantidade))).entrySet().stream()
-				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-				.limit(limite).forEach(item -> itens.add(new Item(item.getKey(), item.getValue())));
-	}
+//	private void mapearResultado(List<Pedido> pedidos) {  TODO
+//		pedidos.forEach(pedido -> itens.add(new Item(pedido.getProduto(), pedido.getQuantidade())));
+//	}
+//
+//	private void ordenarDescrescentePorQuantidade(List<Pedido> pedidos) {
+//		pedidos.stream().collect(Collectors.groupingBy(Pedido::getProduto,
+//						Collectors.summingInt(Pedido::getQuantidade))).entrySet().stream()
+//				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+//				.limit(limite).forEach(item -> itens.add(new Item(item.getKey(), item.getValue())));
+//	}
 }

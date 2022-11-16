@@ -12,20 +12,20 @@ public class CategoriaService {
 
 	//	TOTAL DE CATEGORIAS: 5
 	public Optional<Integer> getTotalCategorias(Optional<Set<Pedido>> pedidos) {
-		if (pedidos.isPresent()) {
-			return Optional.of(pedidos.orElse(new HashSet<>()).stream()
-					.map(pedido -> pedido.getCategoria())
-					.collect(Collectors.toSet()).size());
-		}
+//		if (pedidos.isPresent()) {
+//			return Optional.of(pedidos.orElse(new HashSet<>()).stream()
+//					.map(pedido -> pedido.getCategoria())
+//					.collect(Collectors.toSet()).size());
+//		}  TODO
 		return Optional.empty();
 	}
 
 	public Optional<Set<String>> getCategorias(Optional<Set<Pedido>> pedidos) {
-		if (pedidos.isPresent()) {
-			return Optional.of(pedidos.get().stream()
-					.map(pedido -> pedido.getCategoria())
-					.collect(Collectors.toSet()));
-		}
+//		if (pedidos.isPresent()) {  TODO
+//			return Optional.of(pedidos.get().stream()
+//					.map(pedido -> pedido.getCategoria())
+//					.collect(Collectors.toSet()));
+//		}
 		return Optional.empty();
 	}
 }

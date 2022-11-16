@@ -32,12 +32,12 @@ public class RelatorioVendaPorCategoria implements Relatorio {
 	public List<Item> construirRelatorio() {
 		Collections.sort(categorias);
 
-		categorias.forEach(categoria -> {
+		categorias.forEach(categoria -> {  //TODO
 			Item item = new Item(categoria);
-			caixaPedidos.getPedidos().stream()
-					.filter(pedido -> categoria.equals(pedido.getCategoria()))
-					.forEach(pedido -> item.addVenda(pedido.getQuantidade(), pedido.getPreco()));
-			itens.add(item);
+//			caixaPedidos.getPedidos().stream()
+//					.filter(pedido -> categoria.equals(pedido.getCategoria()))
+//					.forEach(pedido -> item.addVenda(pedido.getQuantidade(), pedido.getPreco()));
+//			itens.add(item);
 		});
 		return itens;
 	}

@@ -52,10 +52,10 @@ public class RelatorioClientesMaisLucrativos implements Relatorio {
 			return this;
 		}
 
-		public void add(Pedido pedido) {
-			this.nome = pedido.getCliente();
-			this.quantidadePedidos++;
-			this.montanteGasto = this.montanteGasto.add(pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())));
+		public void add(Pedido pedido) {  //TODO
+//			this.nome = pedido.getCliente();
+//			this.quantidadePedidos++;
+//			this.montanteGasto = this.montanteGasto.add(pedido.getPreco().multiply(new BigDecimal(pedido.getQuantidade())));
 		}
 
 		public String getNome() {

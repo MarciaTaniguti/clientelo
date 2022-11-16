@@ -33,7 +33,7 @@ public class RelatorioClientesFieis implements Relatorio {
 				}
 			}
 			if (ehNovoCliente) {
-				Item novoItem = new Item(pedido.getCliente());
+				Item novoItem = new Item(pedido.getCliente().getNome());
 				itens.add(novoItem);
 			}
 		}
@@ -42,7 +42,7 @@ public class RelatorioClientesFieis implements Relatorio {
 		return relatorioCommon.formatedItemList(TITULO, itens);
 	}
 
-	private void ordenarLista(List<Item> itemList) {  //TODO - refactor
+	private void ordenarLista(List<Item> itemList) {
 		itemList.sort((o1, o2) -> {
 			int resultComp = Integer.compare(o2.getQtdPedidos(), o1.getQtdPedidos());
 

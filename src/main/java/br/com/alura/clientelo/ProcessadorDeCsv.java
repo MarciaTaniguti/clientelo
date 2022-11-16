@@ -42,7 +42,7 @@ public class ProcessadorDeCsv {
                     LocalDate data = LocalDate.parse(registro.get(DATA),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     String cliente = registro.get(CLIENTE);
 
-                    pedidos.add(new Pedido(categoria,produto,cliente,preco,quantidade,data));
+                    //pedidos.add(new Pedido(categoria,produto,cliente,preco,quantidade,data));
                 });
             }
             return pedidos;

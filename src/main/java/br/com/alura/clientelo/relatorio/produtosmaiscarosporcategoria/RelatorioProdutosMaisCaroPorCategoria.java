@@ -27,15 +27,15 @@ public class RelatorioProdutosMaisCaroPorCategoria implements Relatorio {
 	public List<Item> construirRelatorio() {
 		this.itens = new ArrayList<>();
 
-		Collections.sort(categorias);
-		categorias.forEach(categoria -> {
-			Item item = new Item(categoria);
-			caixaPedidos.getPedidos().stream()
-					.filter(pedido -> Objects.equals(pedido.getCategoria(), categoria)
-							&& pedido.getPreco().compareTo(item.getPreco()) == 1)
-					.forEach(pedido -> item.atualizaItem(pedido.getProduto(), pedido.getPreco()));
-			itens.add(item);
-		});
+//		Collections.sort(categorias);  TODO
+//		categorias.forEach(categoria -> {
+//			Item item = new Item(categoria);
+//			caixaPedidos.getPedidos().stream()
+//					.filter(pedido -> Objects.equals(pedido.get, categoria)
+//							&& pedido.getPreco().compareTo(item.getPreco()) == 1)
+//					.forEach(pedido -> item.atualizaItem(pedido.getProduto(), pedido.getPreco()));
+//			itens.add(item);
+//		});
 
 		return itens;
 	}

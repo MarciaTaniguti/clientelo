@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!--1 persistence unit - agrupa as configurações de uma unidade de persistência, que representa um banco de dados utilizado pela aplicação-->
+    <persistence-unit name="clientelo" transaction-type="RESOURCE_LOCAL"> <!--JTA (servidor de aplicação -EJB,JMS,outras tec do JavaEE- e o servidor se encarrega de cuidar da transação) ou RESOURCE_LOCAL-->
+        <properties>
+            <!--values vão alterar de acordo com o banco de dados-->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:clientelo"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <!--property do hibernate-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> <!--o hibernate usa para saber as peciliaridades do dialeto do BD-->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+        </properties>
+    </persistence-unit>
+</persistence>

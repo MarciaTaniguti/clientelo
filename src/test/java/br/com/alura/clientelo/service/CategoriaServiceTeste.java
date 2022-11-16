@@ -14,10 +14,10 @@ public class CategoriaServiceTeste {
 	private static Set<Pedido> pedidos = new HashSet<>();
 
 	@BeforeAll
-	static void init() {
-		pedidos.add(new Pedido("INFORMATICA", "Teclado", "Ana", new BigDecimal("500.00"), 1, LocalDate.now()));
-		pedidos.add(new Pedido("DECORAÇÃO", "Quadro", "Bia", new BigDecimal("100.00"), 3, LocalDate.now()));
-		pedidos.add(new Pedido("INFORMATICA", "Alexa", "Pedro", new BigDecimal("400.00"), 2, LocalDate.now()));
+	static void init() {  //TODO
+//		pedidos.add(new Pedido("INFORMATICA", "Teclado", "Ana", new BigDecimal("500.00"), 1, LocalDate.now()));
+//		pedidos.add(new Pedido("DECORAÇÃO", "Quadro", "Bia", new BigDecimal("100.00"), 3, LocalDate.now()));
+//		pedidos.add(new Pedido("INFORMATICA", "Alexa", "Pedro", new BigDecimal("400.00"), 2, LocalDate.now()));
 	}
 
 	@Test

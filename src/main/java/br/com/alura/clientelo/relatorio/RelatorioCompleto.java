@@ -33,16 +33,16 @@ public class RelatorioCompleto {
 		CategoriaService categoriaService = new CategoriaService();
 
 		LOGGER.info("##### RELATÓRIO DE VALORES TOTAIS #####");
-		LOGGER.info("TOTAL DE PEDIDOS REALIZADOS: {}", pedidoService.getTotalPedidos(Optional.of(caixaPedidos.getPedidos())));
-		LOGGER.info("TOTAL DE PRODUTOS VENDIDOS: {}", pedidoService.getTotalProdutosVendidos(Optional.of(caixaPedidos.getPedidos())));
-		LOGGER.info("TOTAL DE CATEGORIAS: {}", categoriaService.getTotalCategorias(Optional.of(caixaPedidos.getPedidos())).get());
-		LOGGER.info("MONTANTE DE VENDAS: {}", RelatorioCommon.retornaNumeroFormatado(pedidoService.getMontanteVendas(Optional.of(caixaPedidos.getPedidos()))));
-		Optional<Pedido> pedidoMaisBarato = pedidoService.getPedidoMaisBarato(Optional.of(caixaPedidos.getPedidos()));
-		pedidoMaisBarato.ifPresent(pedido -> LOGGER.info("PEDIDO MAIS BARATO: {} ({})", RelatorioCommon.retornaNumeroFormatado(pedido.getTotal())
-				, pedido.getProduto()));
-		Optional<Pedido> pedidoMaisCaro = pedidoService.getPedidoMaisCaro(Optional.of(caixaPedidos.getPedidos()));
-		pedidoMaisCaro.ifPresent(pedido -> LOGGER.info("PEDIDO MAIS CARO: {} ({})\n", RelatorioCommon.retornaNumeroFormatado(pedido.getTotal()),
-				pedido.getProduto()));
+//		LOGGER.info("TOTAL DE PEDIDOS REALIZADOS: {}", pedidoService.getTotalPedidos(Optional.of(caixaPedidos.getPedidos())));
+//		LOGGER.info("TOTAL DE PRODUTOS VENDIDOS: {}", pedidoService.getTotalProdutosVendidos(Optional.of(caixaPedidos.getPedidos())));
+//		LOGGER.info("TOTAL DE CATEGORIAS: {}", categoriaService.getTotalCategorias(Optional.of(caixaPedidos.getPedidos())).get());
+//		LOGGER.info("MONTANTE DE VENDAS: {}", RelatorioCommon.retornaNumeroFormatado(pedidoService.getMontanteVendas(Optional.of(caixaPedidos.getPedidos()))));
+//		Optional<Pedido> pedidoMaisBarato = pedidoService.getPedidoMaisBarato(Optional.of(caixaPedidos.getPedidos()));
+//		pedidoMaisBarato.ifPresent(pedido -> LOGGER.info("PEDIDO MAIS BARATO: {} ({})", RelatorioCommon.retornaNumeroFormatado(pedido.getTotal())
+//				, pedido.getProduto()));
+//		Optional<Pedido> pedidoMaisCaro = pedidoService.getPedidoMaisCaro(Optional.of(caixaPedidos.getPedidos()));
+//		pedidoMaisCaro.ifPresent(pedido -> LOGGER.info("PEDIDO MAIS CARO: {} ({})\n", RelatorioCommon.retornaNumeroFormatado(pedido.getTotal()),
+//				pedido.getProduto()));  TODO
 		LOGGER.info(relatorioService.gerarRelatorios());
 		LOGGER.info("### FIM DO RELATÓRIO ###");
 	}
