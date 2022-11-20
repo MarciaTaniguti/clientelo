@@ -21,6 +21,7 @@ public class Pedido {
     private final TipoDescontoPedido tipoDesconto;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
+    @Column(name = "total_gasto")
     private BigDecimal totalGasto;
 
 
@@ -29,7 +30,7 @@ public class Pedido {
         this.tipoDesconto = tipoDesconto;
         this.data = LocalDate.now();
         this.desconto = desconto;
-        itens.stream().forEach(this::addItemPedido);
+        itens.forEach(this::addItemPedido);
     }
 
     public Long getId() {

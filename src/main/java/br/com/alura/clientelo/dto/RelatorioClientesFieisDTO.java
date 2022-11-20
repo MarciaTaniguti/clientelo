@@ -1,8 +1,8 @@
-package br.com.alura.clientelo.vo;
+package br.com.alura.clientelo.dto;
 
 import java.math.BigDecimal;
 
-public record RelatorioClientesFieisVo(
+public record RelatorioClientesFieisDTO(
 		String nome,
 		Long quantidadePedidos,
 		BigDecimal montanteGasto) {

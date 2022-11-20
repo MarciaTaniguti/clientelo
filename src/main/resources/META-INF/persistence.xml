@@ -15,7 +15,7 @@
             <!--property do hibernate-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" /> <!--o hibernate usa para saber as peciliaridades do dialeto do BD-->
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>

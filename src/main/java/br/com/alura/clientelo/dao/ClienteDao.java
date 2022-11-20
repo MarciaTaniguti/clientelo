@@ -1,11 +1,6 @@
 package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.model.Cliente;
-import br.com.alura.clientelo.model.Pedido;
-import br.com.alura.clientelo.model.Produto;
-import br.com.alura.clientelo.relatorio.Relatorio;
-import br.com.alura.clientelo.relatorio.clientesFieis.Item;
-import br.com.alura.clientelo.vo.RelatorioClientesFieisVo;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -50,12 +45,4 @@ public class ClienteDao {
 				.getSingleResult());
 	}
 
-	public List<RelatorioClientesFieisVo> gerarRelatorioClientesFieis() {
-		String jpql = "SELECT new " + RelatorioClientesFieisVo.class.getName() +
-				"(c.nome, count(p.id), sum(p.totalGasto)) FROM " +
-				Pedido.class.getName() + " p " +
-				"JOIN p.cliente c " +
-				"GROUP BY c.id";
-		return em.createQuery(jpql, RelatorioClientesFieisVo.class).getResultList();
-	}
 }

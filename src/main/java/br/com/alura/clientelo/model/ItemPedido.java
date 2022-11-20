@@ -20,6 +20,7 @@ public class ItemPedido {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_desconto")
 	private final TipoDescontoItemPedido tipoDesconto;
+	@Column(name = "valor_pago")
 	private BigDecimal valorPago;
 
 	public ItemPedido(Long quantidade, Produto produto, BigDecimal desconto, TipoDescontoItemPedido tipoDesconto) {
@@ -30,10 +31,9 @@ public class ItemPedido {
 		this.setDesconto(desconto);
 	}
 
-	private BigDecimal calcularValorGasto() {
+	private void calcularValorGasto() {
 		BigDecimal valorGastoSemDesconto = (precoUnitario.multiply(new BigDecimal(quantidade)));
 		this.valorPago = valorGastoSemDesconto.multiply(new BigDecimal("1").subtract(desconto));
-		return this.valorPago;
 	}
 
 	public Long getId() {

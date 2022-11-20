@@ -73,9 +73,5 @@ public class ClienteDaoTestes {
 
 	}
 
-	@Test
-	public void deveGerarRelatorioDeClientesFieis() {
-		//Dados inputados pelo CadastraValoresDummy
-		System.out.println(clienteDao.gerarRelatorioClientesFieis());
-	}
+
 }

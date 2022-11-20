@@ -27,7 +27,7 @@ public class Produto {
 	public Produto(String nome, String descricao, Integer quantidadeEstoque, Categoria categoria, BigDecimal preco) {
 		this.nome = nome;
 		this.descricao = descricao;
-		this.quantidadeEstoque = quantidadeEstoque;
+		this.quantidadeEstoque = quantidadeEstoque;  //TODO - Controlar estoque
 		this.categoria = categoria;
 		this.preco = preco;
 	}
