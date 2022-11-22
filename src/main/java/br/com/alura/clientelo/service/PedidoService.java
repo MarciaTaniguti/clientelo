@@ -1,8 +1,7 @@
 package br.com.alura.clientelo.service;
 
-import br.com.alura.clientelo.model.Pedido;
+import br.com.alura.clientelo.orm.Pedido;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 

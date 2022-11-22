@@ -1,6 +1,6 @@
 package br.com.alura.clientelo;
 
-import br.com.alura.clientelo.model.Pedido;
+import br.com.alura.clientelo.orm.Pedido;
 
 import java.util.*;
 

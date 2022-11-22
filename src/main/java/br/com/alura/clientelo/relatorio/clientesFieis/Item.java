@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.relatorio.clientesFieis;
 
-import br.com.alura.clientelo.model.Pedido;
+import br.com.alura.clientelo.orm.Pedido;
 
 public class Item {
 	private final String nomeCliente;

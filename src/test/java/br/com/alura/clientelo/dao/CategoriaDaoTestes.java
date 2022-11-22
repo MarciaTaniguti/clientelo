@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.model.Categoria;
-import br.com.alura.clientelo.model.StatusCategoria;
+import br.com.alura.clientelo.orm.Categoria;
+import br.com.alura.clientelo.orm.StatusCategoria;
 import br.com.alura.clientelo.util.JPAUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;

@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.model.Categoria;
+import br.com.alura.clientelo.orm.Categoria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,13 +1,12 @@
 package br.com.alura.clientelo.relatorio.vendaporcategoria;
 
 import br.com.alura.clientelo.CaixaPedidos;
-import br.com.alura.clientelo.model.Pedido;
+import br.com.alura.clientelo.orm.Pedido;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;

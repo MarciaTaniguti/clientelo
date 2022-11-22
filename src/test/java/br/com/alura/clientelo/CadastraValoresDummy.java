@@ -1,7 +1,7 @@
 package br.com.alura.clientelo;
 
 import br.com.alura.clientelo.dao.*;
-import br.com.alura.clientelo.model.*;
+import br.com.alura.clientelo.orm.*;
 import br.com.alura.clientelo.util.JPAUtil;
 import org.junit.jupiter.api.Test;
 

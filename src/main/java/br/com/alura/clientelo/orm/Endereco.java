@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.model;
+package br.com.alura.clientelo.orm;
 
 import com.sun.istack.NotNull;
 

@@ -1,14 +1,9 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.model.Categoria;
-import br.com.alura.clientelo.model.Cliente;
-import br.com.alura.clientelo.model.Endereco;
-import br.com.alura.clientelo.model.Produto;
+import br.com.alura.clientelo.orm.Categoria;
+import br.com.alura.clientelo.orm.Produto;
 import br.com.alura.clientelo.util.JPAUtil;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;

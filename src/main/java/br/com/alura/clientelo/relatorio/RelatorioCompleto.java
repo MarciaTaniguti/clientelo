@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.relatorio;
 
 import br.com.alura.clientelo.*;
-import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.relatorio.clientesFieis.RelatorioClientesFieis;
 import br.com.alura.clientelo.relatorio.produtosmaiscarosporcategoria.RelatorioProdutosMaisCaroPorCategoria;
 import br.com.alura.clientelo.relatorio.produtosmaisvendidos.RelatorioProdutosMaisVendidos;
@@ -14,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RelatorioCompleto {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RelatorioCompleto.class);
