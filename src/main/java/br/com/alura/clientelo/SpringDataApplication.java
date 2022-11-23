@@ -1,7 +1,9 @@
 package br.com.alura.clientelo;
 
 import br.com.alura.clientelo.orm.Categoria;
-import br.com.alura.clientelo.repository.CategoriaRepository;
+import br.com.alura.clientelo.repository.CategoriaRespository;
+import br.com.alura.clientelo.service.CategoriaService;
+import br.com.alura.clientelo.service.CrudCategoriaService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
 
-    private final CategoriaRepository categoriaRepository;
+    private final CrudCategoriaService categoriaService;
 
-    public SpringDataApplication(CategoriaRepository categoriaRepository) {
-        this.categoriaRepository = categoriaRepository;
+    public SpringDataApplication(CrudCategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
     }
 
     public static void main(String[] args) {
@@ -21,7 +23,6 @@ public class SpringDataApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Categoria categoria = new Categoria("Brinquedo");
-        categoriaRepository.save(categoria);
+        //System.out.println(categoriaService.visualizar());
     }
 }

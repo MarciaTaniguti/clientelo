@@ -31,8 +31,6 @@ public class CategoriaDao {  //criar uma interface que tenha o contrato basico d
 	}
 
 	public Optional<Categoria> buscaPorNome(String nome) {
-		//begin
-		//commit
 		String jpql = "SELECT c FROM " +
 				CATEGORIA + " c where c.nome = :nome";
 		Optional<Categoria> categoria = Optional.empty();
