@@ -19,7 +19,7 @@ public class CrudCategoriaService {
 		this.repository = repository;
 	}
 
-	public void cadastrar(Categoria categoria) {
+	public void cadastra(Categoria categoria) {
 		repository.save(categoria);
 	}
 

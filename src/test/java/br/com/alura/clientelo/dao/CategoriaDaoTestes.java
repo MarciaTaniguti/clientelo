@@ -2,29 +2,19 @@ package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.orm.Categoria;
 import br.com.alura.clientelo.orm.StatusCategoria;
-import br.com.alura.clientelo.util.JPAUtil;
-import org.junit.jupiter.api.AfterAll;
+import br.com.alura.clientelo.service.CrudCategoriaService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
+@SpringBootTest
 public class CategoriaDaoTestes {
+	private final CrudCategoriaService service;
 
-	private static EntityManager em = JPAUtil.getEntityManager();
-	private static CategoriaDao categoriaDao = new CategoriaDao(em);
-
-	@BeforeEach
-	public void begin() {
-		em.getTransaction().begin();
-	}
-
-	@AfterAll
-	public static void close() {
-		em.close();
+	public CategoriaDaoTestes(CrudCategoriaService service) {
+		this.service = service;
 	}
 
 	@Test
@@ -33,13 +23,11 @@ public class CategoriaDaoTestes {
 		Categoria tecnologia = new Categoria("TECNOLOGIA");
 		Categoria livro = new Categoria("LIVRO");
 
-		categoriaDao.cadastra(alimento);
-		categoriaDao.cadastra(tecnologia);
-		categoriaDao.cadastra(livro);
+		service.cadastra(alimento);
+		service.cadastra(tecnologia);
+		service.cadastra(livro);
 
-		em.getTransaction().commit();
-
-		List<Categoria> categorias = categoriaDao.listaTodas();
+		List<Categoria> categorias = service.listaTodas();
 
 		Assertions.assertEquals(1, categorias.stream().filter(categoria -> categoria.getNome()
 				.equals(alimento.getNome())).count());
@@ -53,31 +41,28 @@ public class CategoriaDaoTestes {
 	public void deveAtualizarNomeCategoria() {
 		Categoria categoria = new Categoria("pet");
 
-		categoriaDao.cadastra(categoria);
-		em.flush();
+		service.cadastra(categoria);
 
 		categoria.setNome("PET");
-		categoriaDao.atualizaCategoria(categoria);
-		em.getTransaction().commit();
+		service.atualizaCategoria(categoria);
 
-		Assertions.assertEquals(categoria.getNome(), categoriaDao.buscaPorId(categoria.getId()).getNome());
+		Assertions.assertEquals(categoria.getNome(), service.buscaPorId(categoria.getId()).get().getNome());
 	}
 
 	@Test
 	public void deveAtualizarStatusCategoria() {
 		Categoria categoria = new Categoria("PET");
-		Optional<Categoria> buscaCategoriaPet = categoriaDao.buscaPorNome(categoria.getNome());
+		List<Categoria> buscaCategoriaPet = service.buscaPorNome(categoria.getNome());
 		if (buscaCategoriaPet.isEmpty()) {
-			categoriaDao.cadastra(categoria);
-			em.flush();
+			service.cadastra(categoria);
 		} else {
-			categoria = buscaCategoriaPet.get();
+			categoria = buscaCategoriaPet.get(0);
 		}
 		categoria.setStatus(StatusCategoria.INATIVA);
-		categoriaDao.atualizaCategoria(categoria);
-		em.getTransaction().commit();
+		service.atualizaCategoria(categoria);
 
-		Assertions.assertEquals(categoria.getStatus().name(), categoriaDao.buscaPorId(categoria.getId()).getStatus().name());
+		Categoria categoriaCadastrada = service.buscaPorId(categoria.getId()).get();
+		Assertions.assertEquals(categoria.getStatus().name(), categoriaCadastrada.getStatus().name());
 	}
 
 

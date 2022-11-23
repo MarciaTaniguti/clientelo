@@ -23,6 +23,6 @@ public class SpringDataApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //System.out.println(categoriaService.visualizar());
+        System.out.println(categoriaService.listaTodas());
     }
 }
