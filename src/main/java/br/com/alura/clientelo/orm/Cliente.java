@@ -3,6 +3,7 @@ package br.com.alura.clientelo.orm;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class Cliente {
 	@NotNull
 	@OneToOne
 	private Endereco endereco;
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	@Deprecated
@@ -108,5 +109,16 @@ public class Cliente {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, nome, cpf, telefone, endereco);
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente{" +
+				"id=" + id +
+				", nome='" + nome + '\'' +
+				", cpf='" + cpf + '\'' +
+				", telefone='" + telefone + '\'' +
+				", endereco=" + endereco +
+				'}';
 	}
 }

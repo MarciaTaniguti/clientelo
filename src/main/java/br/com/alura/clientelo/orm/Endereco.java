@@ -65,4 +65,17 @@ public class Endereco {
 	public String getEstado() {
 		return estado;
 	}
+
+	@Override
+	public String toString() {
+		return "Endereco{" +
+				"id=" + id +
+				", rua='" + rua + '\'' +
+				", numero='" + numero + '\'' +
+				", complemento='" + complemento + '\'' +
+				", bairro='" + bairro + '\'' +
+				", cidade='" + cidade + '\'' +
+				", estado='" + estado + '\'' +
+				'}';
+	}
 }

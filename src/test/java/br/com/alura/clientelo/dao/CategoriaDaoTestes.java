@@ -5,6 +5,9 @@ import br.com.alura.clientelo.orm.StatusCategoria;
 import br.com.alura.clientelo.service.CrudCategoriaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 public class CategoriaDaoTestes {
 	private final CrudCategoriaService service;
 
+	@Autowired
 	public CategoriaDaoTestes(CrudCategoriaService service) {
 		this.service = service;
 	}

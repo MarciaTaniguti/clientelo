@@ -13,16 +13,20 @@ public class Produto {
 	private Long id;
 	@NotNull
 	@Column(nullable = false)
-	private final String nome;
-	private final String descricao;
+	private String nome;
+	private String descricao;
 	@NotNull
 	@Column(name = "quantidade_estoque", nullable = false)
-	private final Integer quantidadeEstoque;
+	private Integer quantidadeEstoque;
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Categoria categoria;
 	@NotNull
 	@Column(nullable = false)
-	private final BigDecimal preco;
+	private BigDecimal preco;
+
+	@Deprecated
+	public Produto() {
+	}
 
 	public Produto(String nome, String descricao, Integer quantidadeEstoque, Categoria categoria, BigDecimal preco) {
 		this.nome = nome;

@@ -5,17 +5,21 @@ import br.com.alura.clientelo.orm.Produto;
 import br.com.alura.clientelo.service.CrudProdutoService;
 import br.com.alura.clientelo.util.JPAUtil;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
+@SpringBootTest
 public class ProdutoDaoTestes {
 	private final CrudProdutoService service;
 	private static Categoria tecnologia;
 	private static Categoria decoracao;
 	private static Categoria livro;
 
+	@Autowired
 	public ProdutoDaoTestes(CrudProdutoService service) {
 		this.service = service;
 	}
