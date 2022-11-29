@@ -9,20 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringDataApplication implements CommandLineRunner {
-
-    private final CrudCategoriaService categoriaService;
-
-    public SpringDataApplication(CrudCategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
-    }
+public class SpringDataApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringDataApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println(categoriaService.listaTodas());
-    }
 }
