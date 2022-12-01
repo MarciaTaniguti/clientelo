@@ -32,15 +32,16 @@ public class CadastraValoresDummy {
 	private static Produto iPhone = new Produto("iPhone 14", null, 10, tecnologia, new BigDecimal("8000"));
 	private static Produto quadro = new Produto("Quadro Marvel", null, 5, decoracao, new BigDecimal("100"));
 	private static Produto cleanArch = new Produto("Clean Architecture", "Livro de tecnologia", 2, livro, new BigDecimal("102.90"));
-	private static Pedido pedidoAna = new Pedido(ana, new BigDecimal("0"), TipoDescontoPedido.NENHUM,Arrays.asList(
-			new ItemPedido(1L, iPhone, new BigDecimal("0.05"), TipoDescontoItemPedido.PROMOCAO)));
-	private static Pedido pedidoGiovana = new Pedido(giovana, new BigDecimal("0.3"), TipoDescontoPedido.FIDELIDADE,Arrays.asList(
-			new ItemPedido(2L, iPhone, new BigDecimal("0.1"), TipoDescontoItemPedido.PROMOCAO),
-			new ItemPedido(1L, cleanArch, new BigDecimal("0"), TipoDescontoItemPedido.NENHUM),
-			new ItemPedido(1L, notebook, new BigDecimal("0.25"), TipoDescontoItemPedido.PROMOCAO)));
-	private static Pedido pedidoVinicius = new Pedido(vinicius, new BigDecimal("0"), TipoDescontoPedido.NENHUM, Arrays.asList(
-			new ItemPedido(1L, iPhone, new BigDecimal("0.05"), TipoDescontoItemPedido.PROMOCAO),
-			new ItemPedido(3L, quadro, new BigDecimal("0.1"), TipoDescontoItemPedido.PROMOCAO)));
+
+//	private static Pedido pedidoAna = new Pedido(ana, new BigDecimal("0"), TipoDescontoPedido.NENHUM,Arrays.asList(
+//			new ItemPedido(1L, iPhone, new BigDecimal("0.05"), TipoDescontoItemPedido.PROMOCAO)));
+//	private static Pedido pedidoGiovana = new Pedido(giovana, new BigDecimal("0.3"), TipoDescontoPedido.FIDELIDADE,Arrays.asList(
+//			new ItemPedido(2L, iPhone, new BigDecimal("0.1"), TipoDescontoItemPedido.PROMOCAO),
+//			new ItemPedido(1L, cleanArch, new BigDecimal("0"), TipoDescontoItemPedido.NENHUM),
+//			new ItemPedido(1L, notebook, new BigDecimal("0.25"), TipoDescontoItemPedido.PROMOCAO)));
+//	private static Pedido pedidoVinicius = new Pedido(vinicius, new BigDecimal("0"), TipoDescontoPedido.NENHUM, Arrays.asList(
+//			new ItemPedido(1L, iPhone, new BigDecimal("0.05"), TipoDescontoItemPedido.PROMOCAO),
+//			new ItemPedido(3L, quadro, new BigDecimal("0.1"), TipoDescontoItemPedido.PROMOCAO)));
 
 	@Test
 	public void cadastrar() {
@@ -58,9 +59,9 @@ public class CadastraValoresDummy {
 		produtoDao.cadastra(quadro);
 		produtoDao.cadastra(cleanArch);
 
-		pedidoDao.cadastrar(pedidoAna);
-		pedidoDao.cadastrar(pedidoGiovana);
-		pedidoDao.cadastrar(pedidoVinicius);
+//		pedidoDao.cadastrar(pedidoAna);
+//		pedidoDao.cadastrar(pedidoGiovana);
+//		pedidoDao.cadastrar(pedidoVinicius);
 
 		em.getTransaction().commit();
 	}
@@ -121,15 +122,15 @@ public class CadastraValoresDummy {
 		return cleanArch;
 	}
 
-	public static Pedido getPedidoAna() {
-		return pedidoAna;
-	}
-
-	public static Pedido getPedidoGiovana() {
-		return pedidoGiovana;
-	}
-
-	public static Pedido getPedidoVinicius() {
-		return pedidoVinicius;
-	}
+//	public static Pedido getPedidoAna() {
+//		return pedidoAna;
+//	}
+//
+//	public static Pedido getPedidoGiovana() {
+//		return pedidoGiovana;
+//	}
+//
+//	public static Pedido getPedidoVinicius() {
+//		return pedidoVinicius;
+//	}
 }

@@ -12,25 +12,43 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private final LocalDate data;
+    private LocalDate data;
     @ManyToOne
     private Cliente cliente;
-    private BigDecimal desconto;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_desconto")
-    private final TipoDescontoPedido tipoDesconto;
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @Embedded
+    private PedidoDesconto desconto = new PedidoDesconto();
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
     private List<ItemPedido> itens = new ArrayList<>();
     @Column(name = "total_gasto")
     private BigDecimal totalGasto;
 
+    public Pedido() {
+    }
 
-    public Pedido(Cliente cliente, BigDecimal desconto, TipoDescontoPedido tipoDesconto, List<ItemPedido> itens) {
+    public Pedido(Cliente cliente, List<ItemPedido> itens) {
         this.cliente = cliente;
-        this.tipoDesconto = tipoDesconto;
         this.data = LocalDate.now();
-        this.desconto = desconto;
-        itens.forEach(this::addItemPedido);
+        this.addItensPedido(itens);
+    }
+
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void addItensPedido(List<ItemPedido> itemPedido) {
+        this.itens.addAll(itemPedido);
+        itemPedido.forEach(item -> item.setPedido(this));
+        calculaTotalGasto();  //TODO - refactor
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void aplicarDesconto(Long quantidadeCompraCliente) {
+        desconto.aplicar(quantidadeCompraCliente);
+        calculaTotalGasto();
     }
 
     public Long getId() {
@@ -45,39 +63,17 @@ public class Pedido {
         return cliente;
     }
 
-    public BigDecimal getDesconto() {
+    public PedidoDesconto getDesconto() {
         return desconto;
     }
 
-    public TipoDescontoPedido getTipoDesconto() {
-        return tipoDesconto;
-    }
-
-    public List<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void addItemPedido(ItemPedido itemPedido) {
-        this.itens.add(itemPedido);
-        itemPedido.setPedido(this);
-        calculaTotalGasto();
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        if (desconto.compareTo(new BigDecimal("0.80")) > 0) {
-            throw new RuntimeException("Não é possível ter um desconto acima de 80%");
-        }
-        this.desconto = desconto;
-        calculaTotalGasto();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     private void calculaTotalGasto() {
         BigDecimal totalSemDesconto = this.getItens().stream().map(ItemPedido::getValorPago).reduce(BigDecimal.ZERO, BigDecimal::add);
-        this.totalGasto = totalSemDesconto.multiply(new BigDecimal("1").subtract(this.desconto));
+        this.totalGasto = totalSemDesconto.multiply(new BigDecimal("1").subtract(desconto.getDesconto()));
     }
 
     public BigDecimal getTotalGasto() {
@@ -90,8 +86,8 @@ public class Pedido {
                 "id=" + id +
                 ", data=" + data +
                 ", cliente=" + cliente +
-                ", desconto=" + desconto +
-                ", tipoDesconto=" + tipoDesconto +
+                ", desconto=" + desconto.getDesconto() +
+                ", tipoDesconto=" + desconto.getTipoDesconto() +
                 ", itens=" + itens +
                 ", total=" + totalGasto +
                 '}';

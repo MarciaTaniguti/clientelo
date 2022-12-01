@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.api.controller;
 
-import br.com.alura.clientelo.api.dto.CategoriaDto;
+import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.service.CrudCategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = {"/api/categoria"}, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = {"/api/categorias"}, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoriaController {
 	private final CrudCategoriaService categoriaService;
 
@@ -24,8 +24,8 @@ public class CategoriaController {
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity cadastrar(@RequestBody @Valid CategoriaDto categoria) {
-		CategoriaDto categoriaCriada = categoriaService.cadastra(categoria);
+	public ResponseEntity cadastrar(@RequestBody @Valid CategoriaForm categoria) {
+		CategoriaForm categoriaCriada = categoriaService.cadastra(categoria);
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaCriada);
 	}
 }

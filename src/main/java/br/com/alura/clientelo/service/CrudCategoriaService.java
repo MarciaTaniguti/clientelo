@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.service;
 
-import br.com.alura.clientelo.api.dto.CategoriaDto;
+import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.api.mapper.CategoriaMapper;
 import br.com.alura.clientelo.orm.Categoria;
 import br.com.alura.clientelo.orm.StatusCategoria;
@@ -28,14 +28,14 @@ public class CrudCategoriaService {
 		this.mapper = mapper;
 	}
 
-	public CategoriaDto cadastra(CategoriaDto categoriaDto) {
-		Categoria categoria = mapper.toModel(categoriaDto);
+	public CategoriaForm cadastra(CategoriaForm categoriaForm) {
+		Categoria categoria = mapper.toModel(categoriaForm);
 		categoria.setStatus(StatusCategoria.ATIVA);
 		repository.save(categoria);
 		return mapper.toDto(categoria);
 	}
 
-	public void atualizaCategoria(Long id, CategoriaDto categoria) {
+	public void atualizaCategoria(Long id, CategoriaForm categoria) {
 		Optional<Categoria> categoriaEncontrada = repository.findById(id);
 
 		if (categoriaEncontrada.isEmpty()) {

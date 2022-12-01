@@ -7,19 +7,23 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+	public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		BindingResult result = e.getBindingResult();
 		final List<FieldError> fieldErrors = result.getFieldErrors();
-		ArgumentNotValidException argumentNotValidException = new ArgumentNotValidException(fieldErrors.get(0).getField(),
+		ArgumentNotValid argumentNotValid = new ArgumentNotValid(fieldErrors.get(0).getField(),
 				fieldErrors.get(0).getDefaultMessage());
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(argumentNotValidException);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(argumentNotValid);
+	}
+
+	@ExceptionHandler(CategoriaNotFoundException.class)
+	public ResponseEntity<Object> categoriaNaoEncontrada(CategoriaNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Categoria não encontrada!");
 	}
 
 }

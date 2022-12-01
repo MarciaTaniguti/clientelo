@@ -1,5 +1,7 @@
 package br.com.alura.clientelo.orm;
 
+import br.com.alura.clientelo.api.mapper.Default;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,16 +12,16 @@ public class ItemPedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "preco_unitario")
-	private final BigDecimal precoUnitario;
-	private final Long quantidade;
+	private BigDecimal precoUnitario;
+	private Long quantidade;
 	@ManyToOne
-	private final Produto produto;
-	@ManyToOne
+	private Produto produto;
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Pedido pedido;
 	private BigDecimal desconto;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_desconto")
-	private final TipoDescontoItemPedido tipoDesconto;
+	private TipoDescontoItemPedido tipoDesconto;
 	@Column(name = "valor_pago")
 	private BigDecimal valorPago;
 
@@ -29,6 +31,14 @@ public class ItemPedido {
 		this.tipoDesconto = tipoDesconto;
 		this.precoUnitario = produto.getPreco();
 		this.setDesconto(desconto);
+	}
+	@Default
+	public ItemPedido(Long id, Long quantidade) {
+		this.id = id;
+		this.quantidade = quantidade;
+	}
+
+	public ItemPedido() {
 	}
 
 	private void calcularValorGasto() {
@@ -70,6 +80,14 @@ public class ItemPedido {
 		}
 		this.desconto = desconto;
 		calcularValorGasto();
+	}
+
+	public void setQuantidade(Long quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public BigDecimal getValorPago() {

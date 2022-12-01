@@ -1,14 +1,11 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.api.dto.CategoriaDto;
+import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.orm.Categoria;
-import br.com.alura.clientelo.orm.StatusCategoria;
 import br.com.alura.clientelo.service.CrudCategoriaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -24,9 +21,9 @@ public class CategoriaDaoTestes {
 
 	@Test
 	public void deveCadastrarEListarCategorias() {
-		CategoriaDto alimento = new CategoriaDto("ALIMENTO");
-		CategoriaDto tecnologia = new CategoriaDto("TECNOLOGIA");
-		CategoriaDto livro = new CategoriaDto("LIVRO");
+		CategoriaForm alimento = new CategoriaForm("ALIMENTO");
+		CategoriaForm tecnologia = new CategoriaForm("TECNOLOGIA");
+		CategoriaForm livro = new CategoriaForm("LIVRO");
 
 		service.cadastra(alimento);
 		service.cadastra(tecnologia);
@@ -44,11 +41,11 @@ public class CategoriaDaoTestes {
 
 	@Test
 	public void deveAtualizarNomeCategoria() {
-		CategoriaDto categoria = new CategoriaDto("pet");
+		CategoriaForm categoria = new CategoriaForm("pet");
 
 		service.cadastra(categoria);
 
-		CategoriaDto categoriaAtualizado = new CategoriaDto("PET", categoria.status());
+		CategoriaForm categoriaAtualizado = new CategoriaForm("PET", categoria.status());
 		Long id = service.buscaPorNome(categoria.nome()).get().getId();
 
 		service.atualizaCategoria(id, categoria);
