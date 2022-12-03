@@ -18,16 +18,12 @@ import java.util.Optional;
 
 @Service
 public class CrudPedidoService {
-	private final PedidoRepository repository;
-	private final CrudItemPedidoService itemPedidoService;
-	private final CrudClienteService clienteService;
-
 	@Autowired
-	public CrudPedidoService(PedidoRepository repository,CrudItemPedidoService itemPedidoService,CrudClienteService clienteService) {
-		this.repository = repository;
-		this.itemPedidoService = itemPedidoService;
-		this.clienteService = clienteService;
-	}
+	private PedidoRepository repository;
+	@Autowired
+	private CrudItemPedidoService itemPedidoService;
+	@Autowired
+	private CrudClienteService clienteService;
 
 	@Transactional
 	public PedidoForm cadastrar(PedidoForm pedidoForm) {

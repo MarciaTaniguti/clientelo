@@ -26,4 +26,8 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Categoria não encontrada!");
 	}
 
+	@ExceptionHandler(ClienteNotFoundException.class)
+	public ResponseEntity<Object> clienteNaoEncontrado(ClienteNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
+	}
 }

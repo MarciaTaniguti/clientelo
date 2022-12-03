@@ -5,33 +5,35 @@ import br.com.alura.clientelo.repository.ClienteRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CrudClienteService {
-	private final ClienteRepository repository;
+	@Autowired
+	private ClienteRepository repository;
 	private final Logger LOG = LoggerFactory.getLogger(CrudClienteService.class);
-
-	public CrudClienteService(ClienteRepository repository) {
-		this.repository = repository;
-	}
 
 	public Optional<Cliente> buscaPorId(Long id) {
 		return repository.findById(id);
 	}
 
+	@Transactional
 	public void cadastrar(Cliente cliente) {
 		repository.save(cliente);
 	}
 
+	@Transactional
 	public void remove(Cliente cliente) {
 		repository.delete(cliente);
 		LOG.info("DELETADO!");
 	}
 
+	@Transactional
 	public void atualizar(Cliente cliente) {
 		Optional<Cliente> clienteEncontrado = repository.findById(cliente.getId());
 

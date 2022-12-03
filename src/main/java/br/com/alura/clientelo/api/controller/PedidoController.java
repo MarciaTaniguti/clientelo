@@ -24,18 +24,13 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoController {
-	private final CrudPedidoService pedidoService;
-	private final PedidoMapper mapper;
-
-
 	@Autowired
-	public PedidoController(CrudPedidoService pedidoService,PedidoMapper mapper) {
-		this.pedidoService = pedidoService;
-		this.mapper = mapper;
-	}
+	private CrudPedidoService pedidoService;
+	@Autowired
+	private PedidoMapper mapper;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity cadastrar(@RequestBody @Valid PedidoForm pedidoForm) {
+	public ResponseEntity<PedidoForm> cadastrar(@RequestBody @Valid PedidoForm pedidoForm) {
 		PedidoForm pedidoCriado = pedidoService.cadastrar(pedidoForm);
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
 	}

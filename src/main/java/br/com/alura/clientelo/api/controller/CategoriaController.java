@@ -16,15 +16,11 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path = {"/api/categorias"}, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoriaController {
-	private final CrudCategoriaService categoriaService;
-
 	@Autowired
-	public CategoriaController(CrudCategoriaService categoriaService) {
-		this.categoriaService = categoriaService;
-	}
+	private CrudCategoriaService categoriaService;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity cadastrar(@RequestBody @Valid CategoriaForm categoria) {
+	public ResponseEntity<CategoriaForm> cadastrar(@RequestBody @Valid CategoriaForm categoria) {
 		CategoriaForm categoriaCriada = categoriaService.cadastra(categoria);
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaCriada);
 	}

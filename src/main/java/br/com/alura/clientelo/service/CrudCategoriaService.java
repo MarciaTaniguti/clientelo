@@ -10,24 +10,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CrudCategoriaService {
-	private final CategoriaRespository repository;
-	private final CategoriaMapper mapper;
 	private final Logger LOG = LoggerFactory.getLogger(CrudCategoriaService.class);
-
-
-
 	@Autowired
-	public CrudCategoriaService(CategoriaRespository repository, CategoriaMapper mapper) {
-		this.repository = repository;
-		this.mapper = mapper;
-	}
+	private CategoriaRespository repository;
+	@Autowired
+	private CategoriaMapper mapper;
 
+	@Transactional
 	public CategoriaForm cadastra(CategoriaForm categoriaForm) {
 		Categoria categoria = mapper.toModel(categoriaForm);
 		categoria.setStatus(StatusCategoria.ATIVA);
@@ -35,6 +31,7 @@ public class CrudCategoriaService {
 		return mapper.toDto(categoria);
 	}
 
+	@Transactional
 	public void atualizaCategoria(Long id, CategoriaForm categoria) {
 		Optional<Categoria> categoriaEncontrada = repository.findById(id);
 

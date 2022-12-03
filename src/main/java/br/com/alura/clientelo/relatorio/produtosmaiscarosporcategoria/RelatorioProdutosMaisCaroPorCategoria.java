@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class RelatorioProdutosMaisCaroPorCategoria implements Relatorio {
 	private static final String TITULO = "PRODUTOS MAIS CAROS DE CADA CATEGORIA:";
-	private static final RelatorioCommon relatorioCommon = new RelatorioCommon();
+	private static final RelatorioCommon<RelatorioProdutosMaisCaroPorCategoria, Item> relatorioCommon = new RelatorioCommon<>();
 	private static final CategoriaService categoriaService = new CategoriaService();
-	private List<Item> itens;
+	private List<Item> itens = new ArrayList<>();
 	private final CaixaPedidos caixaPedidos;
 	private List<String> categorias;
 
@@ -33,7 +33,7 @@ public class RelatorioProdutosMaisCaroPorCategoria implements Relatorio {
 //			caixaPedidos.getPedidos().stream()
 //					.filter(pedido -> Objects.equals(pedido.get, categoria)
 //							&& pedido.getPreco().compareTo(item.getPreco()) == 1)
-//					.forEach(pedido -> item.atualizaItem(pedido.getProduto(), pedido.getPreco()));
+//					.forEach(pedido -> item.atualizaItem(pedido.getProduto(), pedido.getPrecifExio()));
 //			itens.add(item);
 //		});
 

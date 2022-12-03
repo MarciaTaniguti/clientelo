@@ -17,16 +17,12 @@ import java.util.Optional;
 
 @Service
 public class CrudProdutoService {
-	private final ProdutoRepository repository;
-	private final CategoriaRespository categoriaRespository;
-	private final ProdutoMapper mapper;
-
 	@Autowired
-	public CrudProdutoService(ProdutoRepository repository, CategoriaRespository categoriaRespository, ProdutoMapper mapper) {
-		this.repository = repository;
-		this.mapper = mapper;
-		this.categoriaRespository = categoriaRespository;
-	}
+	private ProdutoRepository repository;
+	@Autowired
+	private CategoriaRespository categoriaRespository;
+	@Autowired
+	private ProdutoMapper mapper;
 
 	public Optional<Produto> buscaPorId(Long id) {
 		return repository.findById(id);

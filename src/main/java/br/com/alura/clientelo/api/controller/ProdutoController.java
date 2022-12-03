@@ -16,16 +16,11 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path = {"/api/produtos"}, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProdutoController {
-	private final CrudProdutoService produtoService;
-
 	@Autowired
-	public ProdutoController(CrudProdutoService produtoService) {
-		this.produtoService = produtoService;
-	}
+	private CrudProdutoService produtoService;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity cadastrar(@RequestBody @Valid ProdutoForm produto) {
-
+	public ResponseEntity<ProdutoForm> cadastrar(@RequestBody @Valid ProdutoForm produto) {
 		ProdutoForm produtoCriado = produtoService.cadastra(produto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoCriado);
 	}

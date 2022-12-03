@@ -10,12 +10,8 @@ import java.util.List;
 
 @Service
 public class CrudItemPedidoService {
-	private final ItemPedidoRepository repository;
-
 	@Autowired
-	public CrudItemPedidoService(ItemPedidoRepository repository) {
-		this.repository = repository;
-	}
+	private ItemPedidoRepository repository;
 
 	public List<ItemPedido> buscarItensPedidoPorId(List<Long> ids) {
 		return IterableUtils.toList(repository.findAllById(ids));
