@@ -6,9 +6,9 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class RelatorioCommon<T> {
+public class RelatorioCommon<T, S> {
 
-	public String formatedItemList(String titulo, List<T> itens) {
+	public String formatedItemList(String titulo, List<S> itens) {
 		if (itens.isEmpty()) {
 			return null;
 		}
