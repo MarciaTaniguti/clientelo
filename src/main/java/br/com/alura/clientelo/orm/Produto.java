@@ -17,7 +17,7 @@ public class Produto {
 	private String descricao;
 	@NotNull
 	@Column(name = "quantidade_estoque", nullable = false)
-	private Integer quantidadeEstoque;
+	private Long quantidadeEstoque;
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Categoria categoria;
 	@NotNull
@@ -28,7 +28,7 @@ public class Produto {
 	public Produto() {
 	}
 
-	public Produto(String nome, String descricao, Integer quantidadeEstoque, Categoria categoria, BigDecimal preco) {
+	public Produto(String nome, String descricao, Long quantidadeEstoque, Categoria categoria, BigDecimal preco) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.quantidadeEstoque = quantidadeEstoque;  //TODO - Controlar estoque
@@ -48,7 +48,7 @@ public class Produto {
 		return descricao;
 	}
 
-	public Integer getQuantidadeEstoque() {
+	public Long getQuantidadeEstoque() {
 		return quantidadeEstoque;
 	}
 
@@ -76,7 +76,7 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+	public void setQuantidadeEstoque(Long quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
 

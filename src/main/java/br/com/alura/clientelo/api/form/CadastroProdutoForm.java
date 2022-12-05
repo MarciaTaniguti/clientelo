@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-public record ProdutoForm(
+public record CadastroProdutoForm(
 	@Length(min = 2)
 	@NotBlank
 	String nome,

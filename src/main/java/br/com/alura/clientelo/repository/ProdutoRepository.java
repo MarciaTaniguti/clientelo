@@ -3,13 +3,14 @@ package br.com.alura.clientelo.repository;
 import br.com.alura.clientelo.orm.Produto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-public interface ProdutoRepository extends CrudRepository<Produto, Long> {
+public interface ProdutoRepository extends PagingAndSortingRepository<Produto, Long> {
 	@Query("SELECT p FROM Produto p WHERE p.quantidadeEstoque = 0")
 	List<Produto> listaIndisponiveis();
 

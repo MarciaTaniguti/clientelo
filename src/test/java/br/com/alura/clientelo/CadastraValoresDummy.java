@@ -28,10 +28,10 @@ public class CadastraValoresDummy {
 	private static Cliente ana = new Cliente("Ana da Conceição", "29118508154", "79984861807", endAna);
 	private static Cliente giovana = new Cliente("Giovana Marina Sales", "66881157193", "61995903238", endGiovana);
 	private static Cliente vinicius = new Cliente("Vinicius João Miguel Jesus", "84789417034", "21993526814", endVinicius);
-	private static Produto notebook = new Produto("Notebook", "Dell X", 3, tecnologia, new BigDecimal("2000"));
-	private static Produto iPhone = new Produto("iPhone 14", null, 10, tecnologia, new BigDecimal("8000"));
-	private static Produto quadro = new Produto("Quadro Marvel", null, 5, decoracao, new BigDecimal("100"));
-	private static Produto cleanArch = new Produto("Clean Architecture", "Livro de tecnologia", 2, livro, new BigDecimal("102.90"));
+	private static Produto notebook = new Produto("Notebook", "Dell X", 3L, tecnologia, new BigDecimal("2000"));
+	private static Produto iPhone = new Produto("iPhone 14", null, 10L, tecnologia, new BigDecimal("8000"));
+	private static Produto quadro = new Produto("Quadro Marvel", null, 5L, decoracao, new BigDecimal("100"));
+	private static Produto cleanArch = new Produto("Clean Architecture", "Livro de tecnologia", 2L, livro, new BigDecimal("102.90"));
 
 //	private static Pedido pedidoAna = new Pedido(ana, new BigDecimal("0"), TipoDescontoPedido.NENHUM,Arrays.asList(
 //			new ItemPedido(1L, iPhone, new BigDecimal("0.05"), TipoDescontoItemPedido.PROMOCAO)));
