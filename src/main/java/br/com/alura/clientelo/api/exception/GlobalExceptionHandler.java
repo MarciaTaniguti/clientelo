@@ -30,4 +30,14 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<Object> clienteNaoEncontrado(ClienteNotFoundException e) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrado!");
 	}
+
+	@ExceptionHandler(ProdutoNotFoundException.class)
+	public ResponseEntity<Object> produtoNaoEncontrado(ProdutoNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
+
+	@ExceptionHandler(ProdutoSemEstoqueException.class)
+	public ResponseEntity<Object> produtoSemEstoque(ProdutoSemEstoqueException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
 }

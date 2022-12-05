@@ -4,6 +4,7 @@ import br.com.alura.clientelo.api.form.ProdutoForm;
 import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
 import br.com.alura.clientelo.api.mapper.ProdutoMapper;
 import br.com.alura.clientelo.orm.Categoria;
+import br.com.alura.clientelo.orm.Pedido;
 import br.com.alura.clientelo.orm.Produto;
 import br.com.alura.clientelo.repository.CategoriaRespository;
 import br.com.alura.clientelo.repository.ProdutoRepository;
@@ -38,6 +39,18 @@ public class CrudProdutoService {
 		produto.setCategoria(categoria.get());
 		repository.save(produto);
 		return produtoForm;
+	}
+
+	public boolean checkTodosIdsCadastrados(List<Long> ids) {
+		return repository.qtdIdsEncontrados(ids) == ids.size();
+	}
+
+	public boolean temEstoque(Long id, Long qtd) {
+		return repository.temEstoque(id, qtd).intValue() > 0;
+	}
+
+	public List<Produto> listaTodos(List<Long> ids) {
+		return IterableUtils.toList(repository.findAllById(ids));
 	}
 
 	public List<Produto> listaTodos() {

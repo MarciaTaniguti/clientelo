@@ -18,32 +18,32 @@ public class ItemPedido {
 	private Produto produto;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Pedido pedido;
-	private BigDecimal desconto;
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo_desconto")
-	private TipoDescontoItemPedido tipoDesconto;
+	@Embedded
+	private ItemPedidoDesconto desconto;
 	@Column(name = "valor_pago")
 	private BigDecimal valorPago;
 
-	public ItemPedido(Long quantidade, Produto produto, BigDecimal desconto, TipoDescontoItemPedido tipoDesconto) {
+	public ItemPedido(Long quantidade, Produto produto) {
 		this.quantidade = quantidade;
 		this.produto = produto;
-		this.tipoDesconto = tipoDesconto;
 		this.precoUnitario = produto.getPreco();
-		this.setDesconto(desconto);
+		this.desconto = new ItemPedidoDesconto(quantidade);
+		aplicarDesconto();
 	}
+
 	@Default
 	public ItemPedido(Long id, Long quantidade) {
 		this.id = id;
 		this.quantidade = quantidade;
 	}
 
+	@Deprecated
 	public ItemPedido() {
 	}
 
-	private void calcularValorGasto() {
+	private void aplicarDesconto() {
 		BigDecimal valorGastoSemDesconto = (precoUnitario.multiply(new BigDecimal(quantidade)));
-		this.valorPago = valorGastoSemDesconto.multiply(new BigDecimal("1").subtract(desconto));
+		this.valorPago = desconto.calcularValorComDesconto(valorGastoSemDesconto);
 	}
 
 	public Long getId() {
@@ -62,24 +62,8 @@ public class ItemPedido {
 		return produto;
 	}
 
-	public BigDecimal getDesconto() {
-		return desconto;
-	}
-
-	public TipoDescontoItemPedido getTipoDesconto() {
-		return tipoDesconto;
-	}
-
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
-	}
-
-	public void setDesconto(BigDecimal desconto) {
-		if (desconto.compareTo(new BigDecimal("0.81")) > 0) {
-			throw new RuntimeException("Não é possível ter um desconto acima de 80%");
-		}
-		this.desconto = desconto;
-		calcularValorGasto();
 	}
 
 	public void setQuantidade(Long quantidade) {
@@ -102,8 +86,8 @@ public class ItemPedido {
 				", quantidade=" + quantidade +
 				", produto=" + produto +
 				", pedido=" + pedido.getId() +
-				", desconto=" + desconto +
-				", tipoDesconto=" + tipoDesconto +
+				", desconto=" + desconto.getDesconto() +
+				", tipoDesconto=" + desconto.getTipoDesconto() +
 				", valorPago=" + valorPago +
 				'}';
 	}
