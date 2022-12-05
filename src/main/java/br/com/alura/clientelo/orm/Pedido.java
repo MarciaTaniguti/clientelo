@@ -20,8 +20,12 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
     private List<ItemPedido> itens = new ArrayList<>();
     @Column(name = "total_gasto")
-    private BigDecimal totalGasto;
+    private BigDecimal valorTotalPago;
 
+    @Transient
+    private BigDecimal valorTotalCompra;
+
+    @Deprecated
     public Pedido() {
     }
 
@@ -72,12 +76,21 @@ public class Pedido {
     }
 
     private void calculaTotalGasto() {
-        BigDecimal totalSemDesconto = this.getItens().stream().map(ItemPedido::getValorPago).reduce(BigDecimal.ZERO, BigDecimal::add);
-        this.totalGasto = totalSemDesconto.multiply(new BigDecimal("1").subtract(desconto.getDesconto()));
+        valorTotalCompra = this.getItens().stream().map(ItemPedido::getValorPago).reduce(BigDecimal.ZERO, BigDecimal::add);
+        valorTotalPago = valorTotalCompra.multiply(new BigDecimal("1").subtract(desconto.getDesconto()));
     }
 
-    public BigDecimal getTotalGasto() {
-        return totalGasto;
+    public BigDecimal getValorTotalPago() {
+        return valorTotalPago;
+    }
+
+    public BigDecimal getValorTotalCompra() {
+        return valorTotalCompra;
+    }
+
+    public BigDecimal getValorDesconto() {
+        calculaTotalGasto();
+        return valorTotalCompra.multiply(desconto.getDesconto());
     }
 
     @Override
@@ -89,7 +102,7 @@ public class Pedido {
                 ", desconto=" + desconto.getDesconto() +
                 ", tipoDesconto=" + desconto.getTipoDesconto() +
                 ", itens=" + itens +
-                ", total=" + totalGasto +
+                ", total=" + valorTotalPago +
                 '}';
     }
 }

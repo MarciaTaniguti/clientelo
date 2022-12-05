@@ -40,4 +40,9 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<Object> produtoSemEstoque(ProdutoSemEstoqueException e) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	}
+
+	@ExceptionHandler(PedidoNotFoundException.class)
+	public ResponseEntity<Object> pedidoNaoEncontrado(PedidoNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	}
 }

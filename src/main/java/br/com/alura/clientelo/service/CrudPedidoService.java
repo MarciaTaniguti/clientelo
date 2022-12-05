@@ -1,10 +1,13 @@
 package br.com.alura.clientelo.service;
 
 import br.com.alura.clientelo.api.exception.ClienteNotFoundException;
+import br.com.alura.clientelo.api.exception.PedidoNotFoundException;
 import br.com.alura.clientelo.api.exception.ProdutoNotFoundException;
 import br.com.alura.clientelo.api.exception.ProdutoSemEstoqueException;
+import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
+import br.com.alura.clientelo.api.mapper.PedidoMapper;
 import br.com.alura.clientelo.orm.Cliente;
 import br.com.alura.clientelo.orm.ItemPedido;
 import br.com.alura.clientelo.orm.Pedido;
@@ -15,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -29,6 +32,8 @@ public class CrudPedidoService {
 	private CrudClienteService clienteService;
 	@Autowired
 	private CrudProdutoService produtoService;
+	@Autowired
+	private PedidoMapper mapper;
 
 	@Transactional
 	public PedidoForm cadastrar(PedidoForm pedidoForm) {
@@ -70,5 +75,16 @@ public class CrudPedidoService {
 
 	public Long quantidadePedidosPorCliente(Long clienteId) {
 		return repository.quantidadePedidoPorCliente(clienteId);
+	}
+
+	public DetalhePedidoForm buscarDetalhePedido(Long id) {
+		Optional<Pedido> pedido = repository.findById(id);
+		if (pedido.isEmpty()) {
+			throw new PedidoNotFoundException("Pedido não encontrado!");
+		}
+		DetalhePedidoForm detalhePedidoForm = mapper.toDetalhePedidoForm(pedido.get());  //TODO - refactor
+		detalhePedidoForm.setDescontos(pedido.get().getValorDesconto());
+
+		return detalhePedidoForm;
 	}
 }

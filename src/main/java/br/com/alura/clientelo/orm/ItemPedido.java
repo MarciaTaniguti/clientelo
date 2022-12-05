@@ -22,12 +22,15 @@ public class ItemPedido {
 	private ItemPedidoDesconto desconto;
 	@Column(name = "valor_pago")
 	private BigDecimal valorPago;
+	@Transient
+	private BigDecimal valorTotal;
 
 	public ItemPedido(Long quantidade, Produto produto) {
 		this.quantidade = quantidade;
 		this.produto = produto;
 		this.precoUnitario = produto.getPreco();
 		this.desconto = new ItemPedidoDesconto(quantidade);
+		calcularValorTotal();
 		aplicarDesconto();
 	}
 
@@ -41,9 +44,22 @@ public class ItemPedido {
 	public ItemPedido() {
 	}
 
+	private void calcularValorTotal() {
+		this.valorTotal = (precoUnitario.multiply(new BigDecimal(quantidade)));
+	}
+
 	private void aplicarDesconto() {
-		BigDecimal valorGastoSemDesconto = (precoUnitario.multiply(new BigDecimal(quantidade)));
-		this.valorPago = desconto.calcularValorComDesconto(valorGastoSemDesconto);
+		valorPago = this.desconto.calcularValorComDesconto(valorTotal);
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public BigDecimal getValorDesconto() {
+		calcularValorTotal();
+		aplicarDesconto();
+		return valorTotal.multiply(desconto.getDesconto());
 	}
 
 	public Long getId() {
