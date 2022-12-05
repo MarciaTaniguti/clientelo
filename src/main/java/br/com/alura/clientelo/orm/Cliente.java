@@ -27,6 +27,8 @@ public class Cliente {
 	private Endereco endereco;
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Pedido> pedidos = new ArrayList<>();
+	@OneToOne
+	private Usuario usuario;
 
 	@Deprecated
 	public Cliente() {
@@ -95,6 +97,10 @@ public class Cliente {
 	public void addPedido(Pedido pedido) {
 		this.pedidos.add(pedido);
 		pedido.setCliente(this);
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
 	@Override
