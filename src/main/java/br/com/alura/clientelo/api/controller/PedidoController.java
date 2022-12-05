@@ -4,7 +4,6 @@ import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
 import br.com.alura.clientelo.api.mapper.PedidoMapper;
 import br.com.alura.clientelo.service.CrudPedidoService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(path = "/api/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
