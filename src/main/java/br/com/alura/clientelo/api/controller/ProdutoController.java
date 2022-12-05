@@ -4,6 +4,7 @@ import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.api.form.ExibeProdutoForm;
 import br.com.alura.clientelo.service.CrudProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,6 +29,7 @@ public class ProdutoController {
 	}
 
 	@GetMapping
+	@Cacheable(value = "listaProdutos")
 	public ResponseEntity<Page<ExibeProdutoForm>> listaProdutos(@SortDefault(sort = "nome") @PageableDefault(size = 5) final Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(produtoService.listaTodos(pageable));
 	}
