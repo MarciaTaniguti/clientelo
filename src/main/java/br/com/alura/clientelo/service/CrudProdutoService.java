@@ -44,6 +44,11 @@ public class CrudProdutoService {
 		return cadastroProdutoForm;
 	}
 
+	@Transactional
+	public void atualiza(List<Produto> produtos) {
+		repository.saveAll(produtos);
+	}
+
 	public boolean checkTodosIdsCadastrados(List<Long> ids) {
 		return repository.qtdIdsEncontrados(ids) == ids.size();
 	}

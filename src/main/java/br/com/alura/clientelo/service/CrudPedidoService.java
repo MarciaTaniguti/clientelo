@@ -59,17 +59,21 @@ public class CrudPedidoService {
 		}
 
 		for(int i = 0; i<idProdutosCompra.size(); i++) {
-			if (listaProdutosEncontrados.get(i).getQuantidadeEstoque() < pedidoForm.itens().get(i).quantidade()) {
-				throw new ProdutoSemEstoqueException("Produto sem estoque: ID " + listaProdutosEncontrados.get(i).getId());
+			Long quantidadeEstoque = listaProdutosEncontrados.get(i).getQuantidadeEstoque();
+			Long quantidadePedido = pedidoForm.itens().get(i).quantidade();
+			long quantidadeRestante = quantidadeEstoque - quantidadePedido;
+			if (quantidadeRestante < 0) {
+				throw new ProdutoSemEstoqueException("Produto ID " + listaProdutosEncontrados.get(i).getId() + " - em estoque: " + quantidadeEstoque);
 			}
-
-			itemPedidos.add(new ItemPedido(pedidoForm.itens().get(i).quantidade(), listaProdutosEncontrados.get(i)));
+			itemPedidos.add(new ItemPedido(quantidadePedido, listaProdutosEncontrados.get(i)));
+			listaProdutosEncontrados.get(i).setQuantidadeEstoque(quantidadeRestante);
 		}
 
 		Pedido pedido = new Pedido(cliente.get(), itemPedidos);
 		Long qtdComprasCliente = repository.quantidadePedidoPorCliente(pedidoForm.idCliente());
 		pedido.aplicarDesconto(qtdComprasCliente);
 		repository.save(pedido);
+		produtoService.atualiza(listaProdutosEncontrados);
 		return pedidoForm;
 	}
 

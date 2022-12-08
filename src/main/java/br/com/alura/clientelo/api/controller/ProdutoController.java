@@ -26,14 +26,12 @@ public class ProdutoController {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
-	@CacheEvict(value = "listaProdutos", allEntries = true)
 	public ResponseEntity<CadastroProdutoForm> cadastrar(@RequestBody @Valid CadastroProdutoForm produto) {
 		CadastroProdutoForm produtoCriado = produtoService.cadastra(produto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoCriado);
 	}
 
 	@GetMapping
-	@Cacheable(value = "listaProdutos")
 	public ResponseEntity<Page<ExibeProdutoForm>> listaProdutos(@SortDefault(sort = "nome") @PageableDefault(size = 5) final Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(produtoService.listaTodos(pageable));
 	}
