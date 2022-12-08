@@ -3,9 +3,11 @@ package br.com.alura.clientelo.orm;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.DecimalMax;
 import java.math.BigDecimal;
 
 public class ItemPedidoDesconto {
+	@DecimalMax(value = "0.8", message = "Não é possível ter um desconto acima de 80%")
 	private BigDecimal desconto = BigDecimal.ZERO;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_desconto")

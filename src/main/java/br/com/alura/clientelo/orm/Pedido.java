@@ -43,7 +43,7 @@ public class Pedido {
     public void addItensPedido(List<ItemPedido> itemPedido) {
         this.itens.addAll(itemPedido);
         itemPedido.forEach(item -> item.setPedido(this));
-        calculaTotalGasto();  //TODO - refactor
+        calculaTotalGastoEDesconto();  //TODO - refactor
     }
 
     public void setCliente(Cliente cliente) {
@@ -52,7 +52,7 @@ public class Pedido {
 
     public void aplicarDesconto(Long quantidadeCompraCliente) {
         desconto.aplicar(quantidadeCompraCliente);
-        calculaTotalGasto();
+        calculaTotalGastoEDesconto();
     }
 
     public Long getId() {
@@ -75,7 +75,7 @@ public class Pedido {
         this.id = id;
     }
 
-    private void calculaTotalGasto() {
+    private void calculaTotalGastoEDesconto() {
         valorTotalCompra = this.getItens().stream().map(ItemPedido::getValorPago).reduce(BigDecimal.ZERO, BigDecimal::add);
         valorTotalPago = valorTotalCompra.multiply(new BigDecimal("1").subtract(desconto.getDesconto()));
     }
@@ -89,7 +89,7 @@ public class Pedido {
     }
 
     public BigDecimal getValorDesconto() {
-        calculaTotalGasto();
+        calculaTotalGastoEDesconto();
         return valorTotalCompra.multiply(desconto.getDesconto());
     }
 

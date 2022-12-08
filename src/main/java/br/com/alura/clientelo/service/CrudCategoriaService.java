@@ -2,6 +2,7 @@ package br.com.alura.clientelo.service;
 
 import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.api.mapper.CategoriaMapper;
+import br.com.alura.clientelo.dto.RelatorioVendasPorCategoriaDTO;
 import br.com.alura.clientelo.orm.Categoria;
 import br.com.alura.clientelo.orm.StatusCategoria;
 import br.com.alura.clientelo.repository.CategoriaRespository;
@@ -58,6 +59,10 @@ public class CrudCategoriaService {
 			return Optional.ofNullable(repository.findByNome(nome).get(0));
 		}
 		return Optional.empty();
+	}
+
+	public List<RelatorioVendasPorCategoriaDTO> relatorioVendasPorCategoria() {
+		return repository.relatorioVendasPorCategoria();
 	}
 
 }

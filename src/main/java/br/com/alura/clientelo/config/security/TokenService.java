@@ -24,7 +24,7 @@ public class TokenService {
 		return Jwts.builder()
 				.setIssuer("Alura Elo7")
 				.setSubject(usuario.getId().toString())
-				.setIssuedAt(new Date())
+				.setIssuedAt(agora)
 				.setExpiration(new Date(agora.getTime() + Long.parseLong(tempoExpiracao)))
 				.signWith(SignatureAlgorithm.HS256, secret)
 				.compact();
