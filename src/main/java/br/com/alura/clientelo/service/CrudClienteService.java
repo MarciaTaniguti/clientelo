@@ -1,7 +1,11 @@
 package br.com.alura.clientelo.service;
 
+import br.com.alura.clientelo.api.form.ClienteForm;
+import br.com.alura.clientelo.api.mapper.ClienteMapper;
+import br.com.alura.clientelo.dto.ClienteDto;
 import br.com.alura.clientelo.orm.Cliente;
 import br.com.alura.clientelo.repository.ClienteRepository;
+import br.com.alura.clientelo.repository.PedidoRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +20,25 @@ import java.util.Optional;
 public class CrudClienteService {
 	@Autowired
 	private ClienteRepository repository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private ClienteMapper mapper;
+
 	private final Logger LOG = LoggerFactory.getLogger(CrudClienteService.class);
 
 	public Optional<Cliente> buscaPorId(Long id) {
-		return repository.findById(id);
+		Optional<Cliente> cliente = repository.findById(id);
+		Long quantidadeCompras = pedidoRepository.quantidadePedidoPorCliente(id);
+		cliente.ifPresent(c -> c.setQuantidadeCompras(quantidadeCompras));
+		return cliente;
 	}
 
 	@Transactional
-	public void cadastrar(Cliente cliente) {
+	public ClienteDto cadastrar(ClienteForm clienteForm) {
+		Cliente cliente = mapper.toModel(clienteForm);
 		repository.save(cliente);
+		return mapper.toDto(cliente);
 	}
 
 	@Transactional

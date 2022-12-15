@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.api.form;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysql.cj.log.Log;
 
 import javax.validation.Valid;
@@ -13,8 +14,5 @@ public record PedidoForm(
 		@NotEmpty
 		@Valid
 		List<ItemPedidoForm> itens) {
-	public List<Long> getAllItemPedidoFormId() {
-		return itens.stream().map(ItemPedidoForm::id).toList();
-	}
 
 }

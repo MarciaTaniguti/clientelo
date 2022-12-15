@@ -1,0 +1,45 @@
+{
+  "content": [
+    {
+      "nome": "Caderno",
+      "preco": 50.00,
+      "descricao": null,
+      "quantidadeEstoque": 20,
+      "idCategoria": 1,
+      "nomeCategoria": "Artesanato"
+    },
+    {
+      "nome": "Quadro",
+      "preco": 150.00,
+      "descricao": "Pintura de Por do Sol",
+      "quantidadeEstoque": 5,
+      "idCategoria": 2,
+      "nomeCategoria": "Material Escolar"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": false,
+      "sorted": true,
+      "unsorted": false
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 5,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 2,
+  "size": 5,
+  "number": 0,
+  "sort": {
+    "empty": false,
+    "sorted": true,
+    "unsorted": false
+  },
+  "first": true,
+  "numberOfElements": 2,
+  "empty": false
+}

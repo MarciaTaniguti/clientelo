@@ -8,6 +8,7 @@ import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
 import br.com.alura.clientelo.api.mapper.PedidoMapper;
+import br.com.alura.clientelo.dto.PedidoDto;
 import br.com.alura.clientelo.orm.Cliente;
 import br.com.alura.clientelo.orm.ItemPedido;
 import br.com.alura.clientelo.orm.Pedido;
@@ -36,45 +37,19 @@ public class CrudPedidoService {
 	private PedidoMapper mapper;
 
 	@Transactional
-	public PedidoForm cadastrar(PedidoForm pedidoForm) {
-		Optional<Cliente> cliente = clienteService.buscaPorId(pedidoForm.idCliente());
-
-		if (cliente.isEmpty()) {
-			throw new ClienteNotFoundException();
-		}
-		List<ItemPedidoForm> listaOrdenadaItemPedidos = pedidoForm.itens().stream().sorted(Comparator.comparingLong(ItemPedidoForm::id)).toList();
-		pedidoForm.itens().clear();
-		pedidoForm.itens().addAll(listaOrdenadaItemPedidos);
-
-
-		List<Long> idProdutosCompra = pedidoForm.itens().stream().map(ItemPedidoForm::id).toList();
-		List<Produto> listaProdutosEncontrados = produtoService.listaTodos(idProdutosCompra);
-		List<Long> idsEncontrados = listaProdutosEncontrados.stream().map(Produto::getId).toList();
+	public PedidoDto cadastrar(PedidoForm pedidoForm) {
 		List<ItemPedido> itemPedidos = new ArrayList<>();
 
-		Collection<Long> subtract = CollectionUtils.subtract(idProdutosCompra, idsEncontrados);
-
-		if (subtract.size() != 0) {
-			throw new ProdutoNotFoundException("Produto não encontrado: IDs " + subtract);
-		}
-
-		for(int i = 0; i<idProdutosCompra.size(); i++) {
-			Long quantidadeEstoque = listaProdutosEncontrados.get(i).getQuantidadeEstoque();
-			Long quantidadePedido = pedidoForm.itens().get(i).quantidade();
-			long quantidadeRestante = quantidadeEstoque - quantidadePedido;
-			if (quantidadeRestante < 0) {
-				throw new ProdutoSemEstoqueException("Produto ID " + listaProdutosEncontrados.get(i).getId() + " - em estoque: " + quantidadeEstoque);
-			}
-			itemPedidos.add(new ItemPedido(quantidadePedido, listaProdutosEncontrados.get(i)));
-			listaProdutosEncontrados.get(i).setQuantidadeEstoque(quantidadeRestante);
-		}
-
-		Pedido pedido = new Pedido(cliente.get(), itemPedidos);
-		Long qtdComprasCliente = repository.quantidadePedidoPorCliente(pedidoForm.idCliente());
-		pedido.aplicarDesconto(qtdComprasCliente);
+		Cliente cliente = recuperarClienteDaBase(pedidoForm.idCliente());
+		ordenarListaPedidoById(pedidoForm);
+		List<Produto> listaProdutosEncontrados = recuperarPedidosDaBase(pedidoForm);
+		validaEstoqueDosProdutos(pedidoForm.itens(), listaProdutosEncontrados, itemPedidos);
+		
+		Pedido pedido = new Pedido(cliente, itemPedidos);
 		repository.save(pedido);
 		produtoService.atualiza(listaProdutosEncontrados);
-		return pedidoForm;
+
+		return mapper.toDto(pedido);
 	}
 
 	public Long quantidadePedidosPorCliente(Long clienteId) {
@@ -90,5 +65,45 @@ public class CrudPedidoService {
 		detalhePedidoForm.setDescontos(pedido.get().getValorDesconto());
 
 		return detalhePedidoForm;
+	}
+
+	private void validaEstoqueDosProdutos(List<ItemPedidoForm> itens, List<Produto> listaProdutosEncontrados, List<ItemPedido> itemPedidos) {
+		for(int i = 0; i<itens.size(); i++) {
+			Long quantidadeEstoque = listaProdutosEncontrados.get(i).getQuantidadeEstoque();
+			Long quantidadePedido = itens.get(i).quantidade();
+			long quantidadeRestante = quantidadeEstoque - quantidadePedido;
+			if (quantidadeRestante < 0) {
+				throw new ProdutoSemEstoqueException("Produto ID " + listaProdutosEncontrados.get(i).getId() + " - em estoque: " + quantidadeEstoque);
+			}
+			itemPedidos.add(new ItemPedido(quantidadePedido, listaProdutosEncontrados.get(i)));
+			listaProdutosEncontrados.get(i).setQuantidadeEstoque(quantidadeRestante);
+		}
+	}
+
+	private void ordenarListaPedidoById(PedidoForm pedidoForm) {
+		List<ItemPedidoForm> listaOrdenadaItemPedidos = pedidoForm.itens().stream().sorted(Comparator.comparingLong(ItemPedidoForm::id)).toList();
+		pedidoForm.itens().clear();
+		pedidoForm.itens().addAll(listaOrdenadaItemPedidos);
+	}
+
+	private Cliente recuperarClienteDaBase(Long idCliente) {
+		Optional<Cliente> cliente = clienteService.buscaPorId(idCliente);
+		if (cliente.isEmpty()) {
+			throw new ClienteNotFoundException();
+		}
+		return cliente.get();
+	}
+
+	private List<Produto> recuperarPedidosDaBase(PedidoForm pedidoForm) {
+		List<Long> idProdutosCompra = pedidoForm.itens().stream().map(ItemPedidoForm::id).toList();
+		List<Produto> listaProdutosEncontrados = produtoService.listaTodos(idProdutosCompra);
+		List<Long> idsEncontrados = listaProdutosEncontrados.stream().map(Produto::getId).toList();
+
+		Collection<Long> subtract = CollectionUtils.subtract(idProdutosCompra, idsEncontrados);
+
+		if (subtract.size() != 0) {
+			throw new ProdutoNotFoundException("Produto não encontrado: IDs " + subtract);
+		}
+		return listaProdutosEncontrados;
 	}
 }

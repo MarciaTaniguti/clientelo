@@ -8,4 +8,8 @@ public record ItemPedidoForm(
 		Long id,
 		@Positive
 		Long quantidade) {
+
+	public ItemPedidoForm(@Positive Long quantidade) {
+		this(null, quantidade);
+	}
 }

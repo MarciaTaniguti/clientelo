@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.orm;
 
 import com.sun.istack.NotNull;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class Cliente {
 	private List<Pedido> pedidos = new ArrayList<>();
 	@OneToOne
 	private Usuario usuario;
+	@Transient
+	private Long quantidadeCompras;
 
 	@Deprecated
 	public Cliente() {
@@ -44,6 +47,14 @@ public class Cliente {
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.pedidos = pedidos;
+	}
+
+	public Long getQuantidadeCompras() {
+		return quantidadeCompras;
+	}
+
+	public void setQuantidadeCompras(Long quantidadeCompras) {
+		this.quantidadeCompras = quantidadeCompras;
 	}
 
 	public Long getId() {

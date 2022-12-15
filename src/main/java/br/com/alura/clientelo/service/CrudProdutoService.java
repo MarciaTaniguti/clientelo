@@ -1,16 +1,18 @@
 package br.com.alura.clientelo.service;
 
 import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
+import br.com.alura.clientelo.api.exception.PedidoNotFoundException;
+import br.com.alura.clientelo.api.exception.ProdutoNotFoundException;
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
-import br.com.alura.clientelo.api.form.ExibeProdutoForm;
+import br.com.alura.clientelo.dto.ExibeProdutoDto;
 import br.com.alura.clientelo.api.mapper.ProdutoMapper;
+import br.com.alura.clientelo.dto.ProdutoDto;
 import br.com.alura.clientelo.orm.Categoria;
 import br.com.alura.clientelo.orm.Produto;
 import br.com.alura.clientelo.repository.CategoriaRespository;
 import br.com.alura.clientelo.repository.ProdutoRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,12 +30,16 @@ public class CrudProdutoService {
 	@Autowired
 	private ProdutoMapper mapper;
 
-	public Optional<Produto> buscaPorId(Long id) {
-		return repository.findById(id);
+	public ProdutoDto buscaPorId(Long id) {
+		Optional<Produto> produto = repository.findById(id);
+		if (produto.isEmpty()) {
+			throw new ProdutoNotFoundException("ID = " + id);
+		}
+		return mapper.toDto(produto.get());
 	}
 
 	@Transactional
-	public CadastroProdutoForm cadastra(CadastroProdutoForm cadastroProdutoForm) {
+	public ProdutoDto cadastra(CadastroProdutoForm cadastroProdutoForm) {
 		Produto produto = mapper.toModel(cadastroProdutoForm);
 		Optional<Categoria> categoria = categoriaRespository.findById(produto.getCategoria().getId());
 		if (categoria.isEmpty()) {
@@ -41,7 +47,7 @@ public class CrudProdutoService {
 		}
 		produto.setCategoria(categoria.get());
 		repository.save(produto);
-		return cadastroProdutoForm;
+		return mapper.toDto(produto);
 	}
 
 	@Transactional
@@ -61,17 +67,17 @@ public class CrudProdutoService {
 		return IterableUtils.toList(repository.findAllById(ids));
 	}
 
-	public Page<ExibeProdutoForm> listaTodos(Pageable pageable) {
+	public Page<ExibeProdutoDto> listaTodos(Pageable pageable) {
 		Page<Produto> pageProduto = repository.findAll(pageable);
-		return pageProduto.map(this::converteParaExibeProdutoForm);
+		return pageProduto.map(this::toDto);
 	}
 
 	public List<Produto> listaIndisponiveis() {
 		return repository.listaIndisponiveis();
 	}
 
-	private ExibeProdutoForm converteParaExibeProdutoForm(Produto produto) {
-		return new ExibeProdutoForm(produto.getNome(), produto.getPreco(), produto.getDescricao(),
+	private ExibeProdutoDto toDto(Produto produto) {
+		return new ExibeProdutoDto(produto.getNome(), produto.getPreco(), produto.getDescricao(),
 				produto.getQuantidadeEstoque(), produto.getCategoria().getId(), produto.getCategoria().getNome());
 	}
 }

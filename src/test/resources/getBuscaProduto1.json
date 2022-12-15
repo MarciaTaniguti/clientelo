@@ -1,0 +1,10 @@
+{
+	"nome": "Caderno",
+	"preco": 50.00,
+	"descricao": null,
+	"quantidadeEstoque": 20,
+	"categoria": {
+		"nome": "Artesanato",
+		"status": "ATIVA"
+	}
+}

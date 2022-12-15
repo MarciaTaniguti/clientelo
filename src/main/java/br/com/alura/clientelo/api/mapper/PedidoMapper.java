@@ -3,6 +3,7 @@ package br.com.alura.clientelo.api.mapper;
 import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.DetalheProdutoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
+import br.com.alura.clientelo.dto.PedidoDto;
 import br.com.alura.clientelo.orm.ItemPedido;
 import br.com.alura.clientelo.orm.Pedido;
 import br.com.alura.clientelo.orm.Produto;
@@ -15,8 +16,9 @@ import java.math.BigDecimal;
 public interface PedidoMapper {
 	@Mapping(source = "idCliente", target = "cliente.id")
 	Pedido toModel(PedidoForm pedido);
-	@Mapping(source = "cliente.id", target = "idCliente")
-	PedidoForm toDto(Pedido pedido);
+	@Mapping(source = "desconto.desconto", target = "desconto")
+	@Mapping(source = "desconto.tipoDesconto", target = "tipoDesconto")
+	PedidoDto toDto(Pedido pedido);
 	@Mapping(source = "data", target = "dataPedido")
 	@Mapping(source = "valorTotalPago", target = "valor")
 	@Mapping(source = "itens", target = "produtos")
@@ -38,7 +40,6 @@ public interface PedidoMapper {
 		String categoria = produto.getCategoria().getNome();
 		BigDecimal desconto = itemPedido.getValorDesconto();
 
-		return new DetalheProdutoForm( id, nome, categoria, quantidade, precoUnitario, valor, desconto );
+		return new DetalheProdutoForm(id, nome, categoria, quantidade, precoUnitario, valor, desconto);
 	}
-
 }

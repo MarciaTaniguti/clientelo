@@ -32,6 +32,7 @@ public class Pedido {
     public Pedido(Cliente cliente, List<ItemPedido> itens) {
         this.cliente = cliente;
         this.data = LocalDate.now();
+        this.aplicarDesconto();
         this.addItensPedido(itens);
     }
 
@@ -50,9 +51,8 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public void aplicarDesconto(Long quantidadeCompraCliente) {
-        desconto.aplicar(quantidadeCompraCliente);
-        calculaTotalGastoEDesconto();
+    private void aplicarDesconto() {
+        desconto.aplicar(cliente.getQuantidadeCompras());
     }
 
     public Long getId() {

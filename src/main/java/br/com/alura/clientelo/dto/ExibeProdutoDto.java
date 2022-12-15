@@ -1,8 +1,8 @@
-package br.com.alura.clientelo.api.form;
+package br.com.alura.clientelo.dto;
 
 import java.math.BigDecimal;
 
-public record ExibeProdutoForm(
+public record ExibeProdutoDto(
 	String nome,
 	BigDecimal preco,
 	String descricao,
