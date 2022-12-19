@@ -41,8 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProdutoControllerTest {
 	@Autowired
-	private MockMvc mockMvc;
-	@Autowired
 	private ObjectMapper objectMapper;
 	@Autowired
 	private ProdutoController produtoController;

@@ -11,6 +11,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Mapper(componentModel="spring")
 public interface PedidoMapper {
@@ -19,6 +20,9 @@ public interface PedidoMapper {
 	@Mapping(source = "desconto.desconto", target = "desconto")
 	@Mapping(source = "desconto.tipoDesconto", target = "tipoDesconto")
 	PedidoDto toDto(Pedido pedido);
+	@Mapping(source = "desconto.desconto", target = "desconto")
+	@Mapping(source = "desconto.tipoDesconto", target = "tipoDesconto")
+	List<PedidoDto> toDto(List<Pedido> pedido);
 	@Mapping(source = "data", target = "dataPedido")
 	@Mapping(source = "valorTotalPago", target = "valor")
 	@Mapping(source = "itens", target = "produtos")

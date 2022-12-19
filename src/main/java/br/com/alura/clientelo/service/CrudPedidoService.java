@@ -15,6 +15,7 @@ import br.com.alura.clientelo.orm.Pedido;
 import br.com.alura.clientelo.orm.Produto;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,15 +41,21 @@ public class CrudPedidoService {
 	public PedidoDto cadastrar(PedidoForm pedidoForm) {
 		List<ItemPedido> itemPedidos = new ArrayList<>();
 
-		Cliente cliente = recuperarClienteDaBase(pedidoForm.idCliente());
+		Cliente cliente = recuperarClienteDaBase(pedidoForm.getIdCliente());
 		ordenarListaPedidoById(pedidoForm);
 		List<Produto> listaProdutosEncontrados = recuperarPedidosDaBase(pedidoForm);
-		validaEstoqueDosProdutos(pedidoForm.itens(), listaProdutosEncontrados, itemPedidos);
+		validaEstoqueDosProdutos(pedidoForm.getItens(), listaProdutosEncontrados, itemPedidos);
 		
 		Pedido pedido = new Pedido(cliente, itemPedidos);
 		repository.save(pedido);
 		produtoService.atualiza(listaProdutosEncontrados);
 
+		return mapper.toDto(pedido);
+	}
+
+	@Transactional
+	public PedidoDto cadastrar(Pedido pedido) {
+		repository.save(pedido);
 		return mapper.toDto(pedido);
 	}
 
@@ -80,10 +87,13 @@ public class CrudPedidoService {
 		}
 	}
 
-	private void ordenarListaPedidoById(PedidoForm pedidoForm) {
-		List<ItemPedidoForm> listaOrdenadaItemPedidos = pedidoForm.itens().stream().sorted(Comparator.comparingLong(ItemPedidoForm::id)).toList();
-		pedidoForm.itens().clear();
-		pedidoForm.itens().addAll(listaOrdenadaItemPedidos);
+	public List<PedidoDto> listarTodos() {
+		return mapper.toDto(IterableUtils.toList(repository.findAll()));
+	}
+
+	private void ordenarListaPedidoById(PedidoForm pedido) {
+		List<ItemPedidoForm> listaOrdenadaItemPedidos = pedido.getItens().stream().sorted(Comparator.comparingLong(ItemPedidoForm::id)).toList();
+		pedido.replaceItens(listaOrdenadaItemPedidos);
 	}
 
 	private Cliente recuperarClienteDaBase(Long idCliente) {
@@ -94,8 +104,8 @@ public class CrudPedidoService {
 		return cliente.get();
 	}
 
-	private List<Produto> recuperarPedidosDaBase(PedidoForm pedidoForm) {
-		List<Long> idProdutosCompra = pedidoForm.itens().stream().map(ItemPedidoForm::id).toList();
+	private List<Produto> recuperarPedidosDaBase(PedidoForm pedido) {
+		List<Long> idProdutosCompra = pedido.getItens().stream().map(ItemPedidoForm::id).toList();
 		List<Produto> listaProdutosEncontrados = produtoService.listaTodos(idProdutosCompra);
 		List<Long> idsEncontrados = listaProdutosEncontrados.stream().map(Produto::getId).toList();
 

@@ -24,9 +24,13 @@ public class CrudCategoriaService {
 	@Autowired
 	private CategoriaMapper mapper;
 
-	@Transactional
 	public CategoriaForm cadastra(CategoriaForm categoriaForm) {
 		Categoria categoria = mapper.toModel(categoriaForm);
+		return cadastra(categoria);
+	}
+
+	@Transactional
+	public CategoriaForm cadastra(Categoria categoria) {
 		categoria.setStatus(StatusCategoria.ATIVA);
 		repository.save(categoria);
 		return mapper.toDto(categoria);

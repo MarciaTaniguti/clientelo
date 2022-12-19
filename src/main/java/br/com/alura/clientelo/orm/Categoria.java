@@ -27,6 +27,11 @@ public class Categoria {
 		this.status = StatusCategoria.ATIVA;
 	}
 
+	public Categoria(Long id, String nome) {
+		this(nome);
+		this.id = id;
+	}
+
 	public Categoria(Long id) {
 		this.id = id;
 	}

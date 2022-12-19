@@ -37,10 +37,14 @@ public class CrudProdutoService {
 		}
 		return mapper.toDto(produto.get());
 	}
-
-	@Transactional
+	
 	public ProdutoDto cadastra(CadastroProdutoForm cadastroProdutoForm) {
 		Produto produto = mapper.toModel(cadastroProdutoForm);
+		return cadastra(produto);
+	}
+
+	@Transactional
+	public ProdutoDto cadastra(Produto produto) {
 		Optional<Categoria> categoria = categoriaRespository.findById(produto.getCategoria().getId());
 		if (categoria.isEmpty()) {
 			throw new CategoriaNotFoundException();

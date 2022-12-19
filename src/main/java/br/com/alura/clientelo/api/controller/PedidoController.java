@@ -12,16 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/pedidos", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoController {
 	@Autowired
 	private CrudPedidoService pedidoService;
 	@Autowired
 	private PedidoMapper mapper;
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoForm pedidoForm) {
 		PedidoDto pedidoCriado = pedidoService.cadastrar(pedidoForm);
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
@@ -30,6 +31,12 @@ public class PedidoController {
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<DetalhePedidoForm> exibirDetalhes(@PathVariable Long id) {
 		DetalhePedidoForm detalhePedidoForm = pedidoService.buscarDetalhePedido(id);
+		return ResponseEntity.status(HttpStatus.OK).body(detalhePedidoForm);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<PedidoDto>> listarTodos() {
+		List<PedidoDto> detalhePedidoForm = pedidoService.listarTodos();
 		return ResponseEntity.status(HttpStatus.OK).body(detalhePedidoForm);
 	}
 }

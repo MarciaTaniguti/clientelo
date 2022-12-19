@@ -1,5 +1,7 @@
 package br.com.alura.clientelo.orm;
 
+import br.com.alura.clientelo.api.form.ItemPedidoForm;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,6 +38,10 @@ public class Pedido {
         this.addItensPedido(itens);
     }
 
+
+    public Long getIdCliente() {
+        return this.getCliente().getId();
+    }
 
     public List<ItemPedido> getItens() {
         return itens;

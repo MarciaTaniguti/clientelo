@@ -34,9 +34,13 @@ public class CrudClienteService {
 		return cliente;
 	}
 
-	@Transactional
 	public ClienteDto cadastrar(ClienteForm clienteForm) {
 		Cliente cliente = mapper.toModel(clienteForm);
+		return cadastrar(cliente);
+	}
+
+	@Transactional
+	public ClienteDto cadastrar(Cliente cliente) {
 		repository.save(cliente);
 		return mapper.toDto(cliente);
 	}

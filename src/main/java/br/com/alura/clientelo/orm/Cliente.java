@@ -31,7 +31,7 @@ public class Cliente {
 	@OneToOne
 	private Usuario usuario;
 	@Transient
-	private Long quantidadeCompras;
+	private Long quantidadeCompras = 0L;
 
 	@Deprecated
 	public Cliente() {
