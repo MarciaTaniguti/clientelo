@@ -1,13 +1,15 @@
 package br.com.alura.clientelo;
 
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
+import br.com.alura.clientelo.core.entity.cliente.Endereco;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.dao.*;
-import br.com.alura.clientelo.orm.*;
 import br.com.alura.clientelo.util.JPAUtil;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 public class CadastraValoresDummy {
 
@@ -54,10 +56,10 @@ public class CadastraValoresDummy {
 		clienteDao.cadastra(giovana);
 		clienteDao.cadastra(vinicius);
 
-		produtoDao.cadastra(notebook);
-		produtoDao.cadastra(iPhone);
-		produtoDao.cadastra(quadro);
-		produtoDao.cadastra(cleanArch);
+//		produtoDao.cadastra(notebook);
+//		produtoDao.cadastra(iPhone);
+//		produtoDao.cadastra(quadro);
+//		produtoDao.cadastra(cleanArch);
 
 //		pedidoDao.cadastrar(pedidoAna);
 //		pedidoDao.cadastrar(pedidoGiovana);

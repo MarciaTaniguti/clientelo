@@ -1,5 +1,6 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.produto;
 
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;

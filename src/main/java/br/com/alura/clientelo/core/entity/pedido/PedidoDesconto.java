@@ -1,7 +1,6 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.pedido;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.DecimalMax;

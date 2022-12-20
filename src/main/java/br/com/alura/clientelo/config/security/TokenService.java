@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.config.security;
 
-import br.com.alura.clientelo.orm.Usuario;
+import br.com.alura.clientelo.core.entity.usuario.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;

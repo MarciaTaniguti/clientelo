@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.service;
 
-import br.com.alura.clientelo.orm.Pedido;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

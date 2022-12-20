@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.api.mapper;
 
 import br.com.alura.clientelo.api.form.CategoriaForm;
-import br.com.alura.clientelo.orm.Categoria;
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel="spring")

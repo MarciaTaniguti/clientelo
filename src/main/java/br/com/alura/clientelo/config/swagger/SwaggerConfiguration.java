@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.config.swagger;
 
-import br.com.alura.clientelo.orm.Usuario;
-import io.swagger.models.Model;
+import br.com.alura.clientelo.core.entity.usuario.Usuario;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;

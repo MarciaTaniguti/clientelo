@@ -1,6 +1,6 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.pedido;
 
-import br.com.alura.clientelo.api.form.ItemPedidoForm;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

@@ -2,7 +2,7 @@ package br.com.alura.clientelo.api.mapper;
 
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.dto.ProdutoDto;
-import br.com.alura.clientelo.orm.Produto;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

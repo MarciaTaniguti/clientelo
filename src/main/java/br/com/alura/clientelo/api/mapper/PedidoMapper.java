@@ -4,9 +4,9 @@ import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.DetalheProdutoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
 import br.com.alura.clientelo.dto.PedidoDto;
-import br.com.alura.clientelo.orm.ItemPedido;
-import br.com.alura.clientelo.orm.Pedido;
-import br.com.alura.clientelo.orm.Produto;
+import br.com.alura.clientelo.core.entity.pedido.ItemPedido;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

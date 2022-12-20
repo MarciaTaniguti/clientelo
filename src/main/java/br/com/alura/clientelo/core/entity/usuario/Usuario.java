@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.usuario;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

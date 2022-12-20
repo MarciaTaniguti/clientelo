@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.dao;
 
 import br.com.alura.clientelo.api.form.CategoriaForm;
-import br.com.alura.clientelo.orm.Categoria;
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.service.CrudCategoriaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -9,10 +9,10 @@ import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
 import br.com.alura.clientelo.api.mapper.PedidoMapper;
 import br.com.alura.clientelo.dto.PedidoDto;
-import br.com.alura.clientelo.orm.Cliente;
-import br.com.alura.clientelo.orm.ItemPedido;
-import br.com.alura.clientelo.orm.Pedido;
-import br.com.alura.clientelo.orm.Produto;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
+import br.com.alura.clientelo.core.entity.pedido.ItemPedido;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 

@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.orm.Endereco;
+import br.com.alura.clientelo.core.entity.cliente.Endereco;
 
 import javax.persistence.EntityManager;
 

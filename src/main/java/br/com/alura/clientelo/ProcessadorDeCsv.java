@@ -1,6 +1,6 @@
 package br.com.alura.clientelo;
 
-import br.com.alura.clientelo.orm.Pedido;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
 
 import java.io.IOException;
 import java.math.BigDecimal;

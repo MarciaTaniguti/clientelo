@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.config.security;
 
-import br.com.alura.clientelo.orm.Usuario;
+import br.com.alura.clientelo.core.entity.usuario.Usuario;
 import br.com.alura.clientelo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

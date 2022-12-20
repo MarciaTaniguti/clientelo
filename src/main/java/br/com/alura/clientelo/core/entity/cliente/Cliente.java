@@ -1,7 +1,8 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.cliente;
 
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
+import br.com.alura.clientelo.core.entity.usuario.Usuario;
 import com.sun.istack.NotNull;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;

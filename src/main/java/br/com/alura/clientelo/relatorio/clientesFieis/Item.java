@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.relatorio.clientesFieis;
 
-import br.com.alura.clientelo.orm.Pedido;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
 
 public class Item {
 	private final String nomeCliente;

@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.categoria;
 
 import com.sun.istack.NotNull;
 

@@ -6,7 +6,7 @@ import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.dto.CategoriaDto;
 import br.com.alura.clientelo.dto.ProdutoDto;
-import br.com.alura.clientelo.orm.StatusCategoria;
+import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,12 +23,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

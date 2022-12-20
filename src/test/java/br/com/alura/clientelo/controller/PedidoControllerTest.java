@@ -1,13 +1,14 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.api.controller.ClienteController;
 import br.com.alura.clientelo.api.controller.PedidoController;
-import br.com.alura.clientelo.api.controller.ProdutoController;
-import br.com.alura.clientelo.api.form.ClienteForm;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
-import br.com.alura.clientelo.orm.*;
-import br.com.alura.clientelo.relatorio.vendaporcategoria.Item;
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
+import br.com.alura.clientelo.core.entity.cliente.Endereco;
+import br.com.alura.clientelo.core.entity.pedido.ItemPedido;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,17 +20,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.core.parameters.P;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.beans.Transient;
 import java.math.BigDecimal;

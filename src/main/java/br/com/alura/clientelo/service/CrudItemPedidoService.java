@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.service;
 
-import br.com.alura.clientelo.orm.ItemPedido;
+import br.com.alura.clientelo.core.entity.pedido.ItemPedido;
 import br.com.alura.clientelo.repository.ItemPedidoRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;

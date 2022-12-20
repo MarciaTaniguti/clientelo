@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.api.form;
 
-import br.com.alura.clientelo.orm.StatusCategoria;
+import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
 import org.hibernate.validator.constraints.Length;
 
 public record CategoriaForm(

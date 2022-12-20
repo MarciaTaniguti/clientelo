@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.config.security;
 
-import br.com.alura.clientelo.orm.Usuario;
+import br.com.alura.clientelo.core.entity.usuario.Usuario;
 import br.com.alura.clientelo.repository.UsuarioRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

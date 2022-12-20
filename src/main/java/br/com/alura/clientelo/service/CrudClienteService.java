@@ -3,7 +3,7 @@ package br.com.alura.clientelo.service;
 import br.com.alura.clientelo.api.form.ClienteForm;
 import br.com.alura.clientelo.api.mapper.ClienteMapper;
 import br.com.alura.clientelo.dto.ClienteDto;
-import br.com.alura.clientelo.orm.Cliente;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
 import br.com.alura.clientelo.repository.ClienteRepository;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import org.apache.commons.collections4.IterableUtils;

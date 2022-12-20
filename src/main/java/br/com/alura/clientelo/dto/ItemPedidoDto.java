@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dto;
 
-import br.com.alura.clientelo.orm.TipoDescontoPedido;
+import br.com.alura.clientelo.core.entity.pedido.TipoDescontoPedido;
 
 import java.math.BigDecimal;
 

@@ -1,7 +1,7 @@
 package br.com.alura.clientelo.api.mapper;
 
 import br.com.alura.clientelo.dto.EnderecoDto;
-import br.com.alura.clientelo.orm.Endereco;
+import br.com.alura.clientelo.core.entity.cliente.Endereco;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel="spring")

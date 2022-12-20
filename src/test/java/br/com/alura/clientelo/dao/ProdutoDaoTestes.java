@@ -1,16 +1,10 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.orm.Categoria;
-import br.com.alura.clientelo.orm.Produto;
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.service.CrudProdutoService;
-import br.com.alura.clientelo.util.JPAUtil;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.persistence.EntityManager;
-import java.math.BigDecimal;
-import java.util.List;
 
 @SpringBootTest
 public class ProdutoDaoTestes {

@@ -1,4 +1,6 @@
-package br.com.alura.clientelo.orm;
+package br.com.alura.clientelo.core.entity.pedido;
+
+import br.com.alura.clientelo.core.entity.pedido.TipoDescontoItemPedido;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;

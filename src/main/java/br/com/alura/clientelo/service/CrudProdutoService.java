@@ -1,14 +1,13 @@
 package br.com.alura.clientelo.service;
 
 import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
-import br.com.alura.clientelo.api.exception.PedidoNotFoundException;
 import br.com.alura.clientelo.api.exception.ProdutoNotFoundException;
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.dto.ExibeProdutoDto;
 import br.com.alura.clientelo.api.mapper.ProdutoMapper;
 import br.com.alura.clientelo.dto.ProdutoDto;
-import br.com.alura.clientelo.orm.Categoria;
-import br.com.alura.clientelo.orm.Produto;
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.repository.CategoriaRespository;
 import br.com.alura.clientelo.repository.ProdutoRepository;
 import org.apache.commons.collections4.IterableUtils;

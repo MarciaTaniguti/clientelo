@@ -1,20 +1,15 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.orm.*;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
 import br.com.alura.clientelo.service.CrudClienteService;
-import br.com.alura.clientelo.util.JPAUtil;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 public class ClienteDaoTestes {

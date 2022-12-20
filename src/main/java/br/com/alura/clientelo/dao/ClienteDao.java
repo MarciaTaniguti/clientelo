@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.dao;
 
-import br.com.alura.clientelo.orm.Cliente;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
 
 import javax.persistence.EntityManager;
 import java.util.List;
