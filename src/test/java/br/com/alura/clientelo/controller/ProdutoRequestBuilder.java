@@ -32,7 +32,7 @@ public class ProdutoRequestBuilder {
 	ResultActions cadastrar(CadastroProdutoForm produto) throws Exception {
 		String produtoJson = objectMapper.writeValueAsString(produto);
 		return mockMvc.perform(post(uriProdutos)
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(produtoJson));
 	}
 

@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.repository;
 
-import br.com.alura.clientelo.core.entity.pedido.ItemPedido;
+import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

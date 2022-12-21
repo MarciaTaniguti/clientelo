@@ -1,5 +1,6 @@
 package br.com.alura.clientelo.core.entity.categoria;
 
+import br.com.alura.clientelo.api.form.CategoriaForm;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -59,6 +60,8 @@ public class Categoria {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 
 	@Override
 	public String toString() {

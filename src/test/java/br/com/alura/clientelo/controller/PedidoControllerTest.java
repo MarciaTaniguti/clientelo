@@ -1,15 +1,20 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.api.controller.PedidoController;
+import br.com.alura.clientelo.api.form.CategoriaForm;
+import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
+import br.com.alura.clientelo.infra.api.rest.PedidoController;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
-import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
 import br.com.alura.clientelo.core.entity.cliente.Endereco;
-import br.com.alura.clientelo.core.entity.pedido.ItemPedido;
+import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
 import br.com.alura.clientelo.core.entity.pedido.Pedido;
 import br.com.alura.clientelo.core.entity.produto.Produto;
-import br.com.alura.clientelo.service.*;
+import br.com.alura.clientelo.core.usecase.categoria.CategoriaService;
+import br.com.alura.clientelo.core.usecase.cliente.CrudClienteService;
+import br.com.alura.clientelo.core.usecase.cliente.CrudEnderecoService;
+import br.com.alura.clientelo.core.usecase.pedido.CrudPedidoService;
+import br.com.alura.clientelo.core.usecase.produto.CrudProdutoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -50,14 +55,14 @@ public class PedidoControllerTest {
 	@Autowired
 	private CrudEnderecoService enderecoService;
 	@Autowired
-	private CrudCategoriaService categoriaService;
+	private CategoriaService categoriaService;
 	@Autowired
 	private PedidoRequestBuilder builder;
 
 	@BeforeAll
 	public void setUp() {
-		Categoria categoria = new Categoria(1L,"Decoração");
-		categoriaService.cadastra(categoria);
+		CategoriaForm categoria = new CategoriaForm("Decoração", StatusCategoria.ATIVA);
+		categoriaService.cadastrar(categoria);
 
 		Endereco endereco = new Endereco("Rua Antônio Arenso","500",null,"Jardim Santa Edwiges","São Paulo","SP");
 		enderecoService.cadastrar(endereco);
@@ -65,7 +70,7 @@ public class PedidoControllerTest {
 		Cliente aline = new Cliente("Aline Almeida", "66337035038", "11111111111", endereco);
 		clienteService.cadastrar(aline);
 
-		Produto produto = new Produto("Porta-copo", "Resinado na cor azul", 20L, categoria, new BigDecimal("120.00"));
+		Produto produto = new Produto("Porta-copo", "Resinado na cor azul", 20L, categoria.toModel(), new BigDecimal("120.00"));
 		produtoService.cadastra(produto);
 
 		ItemPedido itemPedido = new ItemPedido(1L, produto);

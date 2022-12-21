@@ -1,11 +1,11 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.api.controller.CategoriaController;
-import br.com.alura.clientelo.api.controller.ProdutoController;
+import br.com.alura.clientelo.infra.api.rest.categoria.CategoriaController;
+import br.com.alura.clientelo.infra.api.rest.ProdutoController;
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.api.form.CategoriaForm;
-import br.com.alura.clientelo.dto.CategoriaDto;
-import br.com.alura.clientelo.dto.ProdutoDto;
+import br.com.alura.clientelo.core.usecase.dto.CategoriaDto;
+import br.com.alura.clientelo.core.usecase.dto.ProdutoDto;
 import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

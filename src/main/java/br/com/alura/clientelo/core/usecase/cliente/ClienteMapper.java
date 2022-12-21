@@ -1,0 +1,12 @@
+package br.com.alura.clientelo.core.usecase.cliente;
+
+import br.com.alura.clientelo.api.form.ClienteForm;
+import br.com.alura.clientelo.core.usecase.dto.ClienteDto;
+import br.com.alura.clientelo.core.entity.cliente.Cliente;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel="spring")
+public interface ClienteMapper {
+	Cliente toModel(ClienteForm clienteDto);
+	ClienteDto toDto(Cliente cliente);
+}
