@@ -1,6 +1,5 @@
 package br.com.alura.clientelo.core.usecase.pedido;
 
-import br.com.alura.clientelo.api.exception.ClienteNotFoundException;
 import br.com.alura.clientelo.api.exception.PedidoNotFoundException;
 import br.com.alura.clientelo.api.exception.ProdutoNotFoundException;
 import br.com.alura.clientelo.api.exception.ProdutoSemEstoqueException;
@@ -8,12 +7,12 @@ import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
 import br.com.alura.clientelo.core.usecase.cliente.ClienteService;
-import br.com.alura.clientelo.core.usecase.produto.CrudProdutoService;
 import br.com.alura.clientelo.core.usecase.dto.PedidoDto;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
 import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
 import br.com.alura.clientelo.core.entity.pedido.Pedido;
 import br.com.alura.clientelo.core.entity.produto.Produto;
+import br.com.alura.clientelo.core.usecase.produto.ProdutoService;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
@@ -33,7 +32,7 @@ public class CrudPedidoService {
 	@Autowired
 	private ClienteService clienteService;
 	@Autowired
-	private CrudProdutoService produtoService;
+	private ProdutoService produtoService;
 	@Autowired
 	private PedidoMapper mapper;
 

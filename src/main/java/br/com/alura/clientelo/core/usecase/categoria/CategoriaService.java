@@ -3,6 +3,7 @@ package br.com.alura.clientelo.core.usecase.categoria;
 import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
 import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.core.entity.categoria.RepositorioDeCategoria;
+import br.com.alura.clientelo.core.usecase.dto.CategoriaDto;
 import br.com.alura.clientelo.core.usecase.dto.RelatorioVendasPorCategoriaDTO;
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
@@ -20,34 +21,30 @@ public class CategoriaService {
 	private final Logger LOG = LoggerFactory.getLogger(CategoriaService.class);
 	@Autowired
 	private RepositorioDeCategoria repository;
-	@Autowired
-	private CategoriaMapper mapper;
 
 	@Transactional
-	public Categoria cadastrar(CategoriaForm categoriaForm) {
-		Categoria categoria = mapper.toModel(categoriaForm);
+	public Categoria cadastrar(Categoria categoria) {
 		categoria.setStatus(StatusCategoria.ATIVA);
 		repository.cadastrar(categoria);
 		return categoria;
 	}
 
 	@Transactional
-	public Optional<Categoria> atualizaCategoria(Long id, CategoriaForm categoria) {
+	public Optional<Categoria> atualizaCategoria(Long id, Categoria categoria) {
 		if (repository.buscarPorId(id).isEmpty()) {
 			return Optional.empty();
 		}
-		Categoria categoriaAtualizada = mapper.toModel(categoria);
-		categoriaAtualizada.setId(id);
-		return Optional.ofNullable(repository.atualizar(categoriaAtualizada));
+		categoria.setId(id);
+		return Optional.ofNullable(repository.atualizar(categoria));
 	}
 
 	@Transactional(readOnly = true)
-	public CategoriaForm buscaPorId(Long id) {
+	public Categoria buscaPorId(Long id) {
 		Optional<Categoria> categoria = repository.buscarPorId(id);
 		if (categoria.isEmpty()) {
 			throw new CategoriaNotFoundException(String.valueOf(id));
 		}
-		return mapper.toForm(categoria.get());
+		return categoria.get();
 	}
 
 	@Transactional(readOnly = true)

@@ -4,11 +4,12 @@ import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
 import br.com.alura.clientelo.api.exception.ProdutoNotFoundException;
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.core.entity.categoria.RepositorioDeCategoria;
+import br.com.alura.clientelo.core.entity.produto.RepositorioDeProduto;
 import br.com.alura.clientelo.core.usecase.dto.ExibeProdutoDto;
 import br.com.alura.clientelo.core.usecase.dto.ProdutoDto;
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.core.entity.produto.Produto;
-import br.com.alura.clientelo.repository.ProdutoRepository;
+import br.com.alura.clientelo.infra.jpa.produto.ProdutoRepositoryJPA;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,46 +21,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CrudProdutoService {
+public class ProdutoService {
 	@Autowired
-	private ProdutoRepository repository;
+	private RepositorioDeProduto repository;
 	@Autowired
 	private RepositorioDeCategoria categoriaRespository;
-	@Autowired
-	private ProdutoMapper mapper;
 
-	public ProdutoDto buscaPorId(Long id) {
-		Optional<Produto> produto = repository.findById(id);
+	public Produto buscaPorId(Long id) {
+		Optional<Produto> produto = repository.buscaPorId(id);
 		if (produto.isEmpty()) {
 			throw new ProdutoNotFoundException("ID = " + id);
 		}
-		return mapper.toDto(produto.get());
-	}
-	
-	public ProdutoDto cadastra(CadastroProdutoForm cadastroProdutoForm) {
-		Produto produto = mapper.toModel(cadastroProdutoForm);
-		return cadastra(produto);
+		return produto.get();
 	}
 
 	@Transactional
-	public ProdutoDto cadastra(Produto produto) {
+	public Produto cadastra(Produto produto) {
 		Long idCategoria = produto.getCategoria().getId();
 		Optional<Categoria> categoria = categoriaRespository.buscarPorId(idCategoria);
 		if (categoria.isEmpty()) {
 			throw new CategoriaNotFoundException(String.valueOf(idCategoria));
 		}
 		produto.setCategoria(categoria.get());
-		repository.save(produto);
-		return mapper.toDto(produto);
+		repository.cadastrar(produto);
+		return produto;
 	}
 
 	@Transactional
 	public void atualiza(List<Produto> produtos) {
-		repository.saveAll(produtos);
-	}
-
-	public boolean checkTodosIdsCadastrados(List<Long> ids) {
-		return repository.qtdIdsEncontrados(ids) == ids.size();
+		repository.atualizar(produtos);
 	}
 
 	public boolean temEstoque(Long id, Long qtd) {
@@ -67,11 +57,11 @@ public class CrudProdutoService {
 	}
 
 	public List<Produto> listaTodos(List<Long> ids) {
-		return IterableUtils.toList(repository.findAllById(ids));
+		return IterableUtils.toList(repository.buscaPorId(ids));
 	}
 
 	public Page<ExibeProdutoDto> listaTodos(Pageable pageable) {
-		Page<Produto> pageProduto = repository.findAll(pageable);
+		Page<Produto> pageProduto = repository.buscaTodos(pageable);
 		return pageProduto.map(this::toDto);
 	}
 

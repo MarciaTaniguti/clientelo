@@ -1,8 +1,9 @@
 package br.com.alura.clientelo.infra.api.rest.categoria;
 
-import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
+import br.com.alura.clientelo.core.usecase.categoria.CategoriaMapper;
 import br.com.alura.clientelo.core.usecase.categoria.CategoriaService;
+import br.com.alura.clientelo.core.usecase.dto.CategoriaDto;
 import br.com.alura.clientelo.core.usecase.dto.RelatorioVendasPorCategoriaDTO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,30 @@ import java.util.List;
 public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	private CategoriaMapper mapper;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid CategoriaForm categoria) {
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid Categoria categoria) {
 		Categoria categoriaCriada = categoriaService.cadastrar(categoria);
 		String id = String.valueOf(categoriaCriada.getId());
-		return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri()).body(categoriaCriada);
+		return ResponseEntity.created(ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(id).toUri())
+				.body(mapper.toDto(categoriaCriada));
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<CategoriaForm> exibirDetalhes(@PathVariable Long id) {
-		CategoriaForm categoria = categoriaService.buscaPorId(id);
-		return ResponseEntity.ok().body(categoria);
+	public ResponseEntity<CategoriaDto> exibirDetalhes(@PathVariable Long id) {
+		Categoria categoria = categoriaService.buscaPorId(id);
+		return ResponseEntity.ok().body(mapper.toDto(categoria));
+	}
+
+	@GetMapping
+	public ResponseEntity<List<CategoriaDto>> listarTodas() {
+		List<Categoria> categorias = categoriaService.listaTodas();
+		return ResponseEntity.ok().body(mapper.toDto(categorias));
 	}
 
 	@GetMapping(path = "/vendas")

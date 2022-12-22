@@ -1,9 +1,11 @@
-package br.com.alura.clientelo.infra.api.rest;
+package br.com.alura.clientelo.infra.api.rest.produto;
 
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
+import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.core.usecase.dto.ExibeProdutoDto;
 import br.com.alura.clientelo.core.usecase.dto.ProdutoDto;
-import br.com.alura.clientelo.core.usecase.produto.CrudProdutoService;
+import br.com.alura.clientelo.core.usecase.produto.ProdutoMapper;
+import br.com.alura.clientelo.core.usecase.produto.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +23,15 @@ import javax.validation.Valid;
 @RequestMapping(path = {"/api/produtos"}, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProdutoController {
 	@Autowired
-	private CrudProdutoService produtoService;
+	private ProdutoService produtoService;
+	@Autowired
+	private ProdutoMapper mapper;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional
-	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid CadastroProdutoForm produto) {
-		ProdutoDto produtoDto = produtoService.cadastra(produto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(produtoDto);
+	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid CadastroProdutoForm produtoForm) {
+		Produto produto = produtoService.cadastra(mapper.toModel(produtoForm));
+		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDto(produto));
 	}
 
 	@GetMapping
@@ -37,6 +41,7 @@ public class ProdutoController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProdutoDto> buscaProduto(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(produtoService.buscaPorId(id));
+		Produto produto = produtoService.buscaPorId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(mapper.toDto(produto));
 	}
 }

@@ -1,7 +1,9 @@
 package br.com.alura.clientelo.controller;
 
 import br.com.alura.clientelo.api.form.CategoriaForm;
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
+import br.com.alura.clientelo.core.usecase.produto.ProdutoService;
 import br.com.alura.clientelo.infra.api.rest.PedidoController;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
@@ -14,7 +16,6 @@ import br.com.alura.clientelo.core.usecase.categoria.CategoriaService;
 import br.com.alura.clientelo.core.usecase.cliente.ClienteService;
 import br.com.alura.clientelo.core.usecase.cliente.EnderecoService;
 import br.com.alura.clientelo.core.usecase.pedido.CrudPedidoService;
-import br.com.alura.clientelo.core.usecase.produto.CrudProdutoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.beans.Transient;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class PedidoControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	@Autowired
-	private CrudProdutoService produtoService;
+	private ProdutoService produtoService;
 	@Autowired
 	private PedidoController pedidoController;
 	@Autowired
@@ -61,7 +61,7 @@ public class PedidoControllerTest {
 
 	@BeforeAll
 	public void setUp() {
-		CategoriaForm categoria = new CategoriaForm("Decoração", StatusCategoria.ATIVA);
+		Categoria categoria = new Categoria("Decoração");
 		categoriaService.cadastrar(categoria);
 
 		Endereco endereco = new Endereco("Rua Antônio Arenso","500",null,"Jardim Santa Edwiges","São Paulo","SP");
@@ -70,7 +70,7 @@ public class PedidoControllerTest {
 		Cliente aline = new Cliente("Aline Almeida", "66337035038", "11111111111", endereco);
 		clienteService.cadastrar(aline);
 
-		Produto produto = new Produto("Porta-copo", "Resinado na cor azul", 20L, categoria.toModel(), new BigDecimal("120.00"));
+		Produto produto = new Produto("Porta-copo", "Resinado na cor azul", 20L, categoria, new BigDecimal("120.00"));
 		produtoService.cadastra(produto);
 
 		ItemPedido itemPedido = new ItemPedido(1L, produto);

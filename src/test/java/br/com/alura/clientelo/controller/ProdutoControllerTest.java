@@ -1,7 +1,8 @@
 package br.com.alura.clientelo.controller;
 
+import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.infra.api.rest.categoria.CategoriaController;
-import br.com.alura.clientelo.infra.api.rest.ProdutoController;
+import br.com.alura.clientelo.infra.api.rest.produto.ProdutoController;
 import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.core.usecase.dto.CategoriaDto;
@@ -52,8 +53,8 @@ public class ProdutoControllerTest {
 		objectMapper.configure(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS, true)
 				.setNodeFactory(JsonNodeFactory.withExactBigDecimals(true));
 
-		CategoriaForm artesanato = new CategoriaForm("Artesanato");
-		CategoriaForm materialEscolar = new CategoriaForm("Material Escolar");
+		Categoria artesanato = new Categoria("Artesanato");
+		Categoria materialEscolar = new Categoria("Material Escolar");
 
 		categoriaController.cadastrar(artesanato);
 		categoriaController.cadastrar(materialEscolar);
