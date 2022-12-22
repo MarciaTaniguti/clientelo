@@ -1,13 +1,11 @@
 package br.com.alura.clientelo.infra.jpa.cliente;
 
-import br.com.alura.clientelo.api.exception.ClienteNotFoundException;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
-import br.com.alura.clientelo.core.usecase.cliente.RepositorioDeCliente;
+import br.com.alura.clientelo.core.entity.cliente.RepositorioDeCliente;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

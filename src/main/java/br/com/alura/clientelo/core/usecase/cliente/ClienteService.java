@@ -2,11 +2,10 @@ package br.com.alura.clientelo.core.usecase.cliente;
 
 import br.com.alura.clientelo.api.exception.ClienteNotFoundException;
 import br.com.alura.clientelo.api.form.ClienteForm;
+import br.com.alura.clientelo.core.entity.cliente.RepositorioDeCliente;
 import br.com.alura.clientelo.core.usecase.dto.ClienteDto;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
-import br.com.alura.clientelo.infra.jpa.cliente.ClienteRepositoryJPA;
 import br.com.alura.clientelo.repository.PedidoRepository;
-import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

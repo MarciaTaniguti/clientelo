@@ -1,6 +1,7 @@
 package br.com.alura.clientelo.core.usecase.cliente;
 
 import br.com.alura.clientelo.core.entity.cliente.Endereco;
+import br.com.alura.clientelo.core.entity.cliente.RepositorioDeEndereco;
 import br.com.alura.clientelo.core.usecase.dto.EnderecoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

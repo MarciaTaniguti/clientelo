@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.core.usecase.cliente;
+package br.com.alura.clientelo.core.entity.cliente;
 
 import br.com.alura.clientelo.core.entity.cliente.Endereco;
 import org.springframework.stereotype.Repository;
