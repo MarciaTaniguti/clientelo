@@ -1,22 +1,12 @@
 package br.com.alura.clientelo.orm;
 
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
-import br.com.alura.clientelo.core.entity.cliente.Cliente;
-import br.com.alura.clientelo.core.entity.cliente.Endereco;
-import br.com.alura.clientelo.core.entity.pedido.Pedido;
-import br.com.alura.clientelo.core.entity.pedido.PedidoDesconto;
-import br.com.alura.clientelo.core.entity.pedido.TipoDescontoPedido;
 import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
-import br.com.alura.clientelo.core.entity.pedido.item.TipoDescontoItemPedido;
 import br.com.alura.clientelo.core.entity.produto.Produto;
-import br.com.alura.clientelo.core.usecase.cliente.CrudClienteService;
-import br.com.alura.clientelo.core.usecase.pedido.CrudPedidoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class ItemPedidoTestes {
 

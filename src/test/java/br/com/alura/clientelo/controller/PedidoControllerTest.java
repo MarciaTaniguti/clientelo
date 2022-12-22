@@ -11,8 +11,8 @@ import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
 import br.com.alura.clientelo.core.entity.pedido.Pedido;
 import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.core.usecase.categoria.CategoriaService;
-import br.com.alura.clientelo.core.usecase.cliente.CrudClienteService;
-import br.com.alura.clientelo.core.usecase.cliente.CrudEnderecoService;
+import br.com.alura.clientelo.core.usecase.cliente.ClienteService;
+import br.com.alura.clientelo.core.usecase.cliente.EnderecoService;
 import br.com.alura.clientelo.core.usecase.pedido.CrudPedidoService;
 import br.com.alura.clientelo.core.usecase.produto.CrudProdutoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,11 +49,11 @@ public class PedidoControllerTest {
 	@Autowired
 	private PedidoController pedidoController;
 	@Autowired
-	private CrudClienteService clienteService;
+	private ClienteService clienteService;
 	@Autowired
 	private CrudPedidoService pedidoService;
 	@Autowired
-	private CrudEnderecoService enderecoService;
+	private EnderecoService enderecoService;
 	@Autowired
 	private CategoriaService categoriaService;
 	@Autowired
@@ -80,7 +80,6 @@ public class PedidoControllerTest {
 	}
 
 	@Test
-	@Transient
 	public void deveRetornar201AoCadastrarPedido() throws Exception {
 		ItemPedidoForm itens = new ItemPedidoForm(1L, 4L);
 
@@ -91,7 +90,6 @@ public class PedidoControllerTest {
 	}
 
 	@Test
-	@Transient
 	public void deveRetornar400AoCadastrarPedidoComItemDePedidoSemEstoque() throws Exception {
 		ItemPedidoForm itens = new ItemPedidoForm(1L, 100L);
 

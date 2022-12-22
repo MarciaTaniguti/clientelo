@@ -7,7 +7,7 @@ import br.com.alura.clientelo.api.exception.ProdutoSemEstoqueException;
 import br.com.alura.clientelo.api.form.DetalhePedidoForm;
 import br.com.alura.clientelo.api.form.ItemPedidoForm;
 import br.com.alura.clientelo.api.form.PedidoForm;
-import br.com.alura.clientelo.core.usecase.cliente.CrudClienteService;
+import br.com.alura.clientelo.core.usecase.cliente.ClienteService;
 import br.com.alura.clientelo.core.usecase.produto.CrudProdutoService;
 import br.com.alura.clientelo.core.usecase.dto.PedidoDto;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
@@ -31,7 +31,7 @@ public class CrudPedidoService {
 	@Autowired
 	private CrudItemPedidoService itemPedidoService;
 	@Autowired
-	private CrudClienteService clienteService;
+	private ClienteService clienteService;
 	@Autowired
 	private CrudProdutoService produtoService;
 	@Autowired
@@ -97,11 +97,7 @@ public class CrudPedidoService {
 	}
 
 	private Cliente recuperarClienteDaBase(Long idCliente) {
-		Optional<Cliente> cliente = clienteService.buscaPorId(idCliente);
-		if (cliente.isEmpty()) {
-			throw new ClienteNotFoundException();
-		}
-		return cliente.get();
+		return clienteService.buscaPorId(idCliente).toModel();
 	}
 
 	private List<Produto> recuperarPedidosDaBase(PedidoForm pedido) {

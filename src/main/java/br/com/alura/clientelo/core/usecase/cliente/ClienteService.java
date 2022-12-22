@@ -1,9 +1,10 @@
 package br.com.alura.clientelo.core.usecase.cliente;
 
+import br.com.alura.clientelo.api.exception.ClienteNotFoundException;
 import br.com.alura.clientelo.api.form.ClienteForm;
 import br.com.alura.clientelo.core.usecase.dto.ClienteDto;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
-import br.com.alura.clientelo.repository.ClienteRepository;
+import br.com.alura.clientelo.infra.jpa.cliente.ClienteRepositoryJPA;
 import br.com.alura.clientelo.repository.PedidoRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
@@ -16,21 +17,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CrudClienteService {
+public class ClienteService {
 	@Autowired
-	private ClienteRepository repository;
+	private RepositorioDeCliente repository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private ClienteMapper mapper;
 
-	private final Logger LOG = LoggerFactory.getLogger(CrudClienteService.class);
+	private final Logger LOG = LoggerFactory.getLogger(ClienteService.class);
 
-	public Optional<Cliente> buscaPorId(Long id) {
-		Optional<Cliente> cliente = repository.findById(id);
+	public ClienteDto buscaPorId(Long id) {
+		Optional<Cliente> cliente = repository.buscarPorId(id);
+		if (cliente.isEmpty()) {
+			throw new ClienteNotFoundException();
+		}
 		Long quantidadeCompras = pedidoRepository.quantidadePedidoPorCliente(id);
 		cliente.ifPresent(c -> c.setQuantidadeCompras(quantidadeCompras));
-		return cliente;
+		return mapper.toDto(cliente.get());
 	}
 
 	public ClienteDto cadastrar(ClienteForm clienteForm) {
@@ -40,34 +44,35 @@ public class CrudClienteService {
 
 	@Transactional
 	public ClienteDto cadastrar(Cliente cliente) {
-		repository.save(cliente);
+		repository.cadastrar(cliente);
 		return mapper.toDto(cliente);
 	}
 
 	@Transactional
 	public void remove(Cliente cliente) {
-		repository.delete(cliente);
-		LOG.info("DELETADO!");
+		repository.remover(cliente);
 	}
 
 	@Transactional
-	public void atualizar(Cliente cliente) {
-		Optional<Cliente> clienteEncontrado = repository.findById(cliente.getId());
+	public ClienteDto atualizar(Cliente cliente) {
+		Optional<Cliente> clienteAtualizado = repository.atualizar(cliente);
 
-		if (clienteEncontrado.isEmpty()) {
-			LOG.info("Cliente não encontrado!");
-			return;
+		if (clienteAtualizado.isEmpty()) {
+			throw new ClienteNotFoundException();
 		}
-
-		repository.save(cliente);
-		LOG.info("ATUALIZADO!");
+		return mapper.toDto(clienteAtualizado.get());
 	}
 
-	public List<Cliente> listaTodos() {
-		return IterableUtils.toList(repository.findAll());
+	public List<ClienteDto> listaTodos() {
+		List<Cliente> clientes = repository.listaTodos();
+		return mapper.toDto(clientes);
 	}
 
-	public List<Cliente> buscaPorNome(String nome) {
-		return repository.findByNome(nome);
+	public ClienteDto buscaPorNome(String nome) {
+		Optional<Cliente> cliente = repository.buscarPorNome(nome);
+		if (cliente.isEmpty()) {
+			throw new ClienteNotFoundException();
+		}
+		return mapper.toDto(cliente.get());
 	}
 }

@@ -13,7 +13,7 @@ public class CategoriaForm {
 	@Length(min = 2, message = "O nome deve possuir ao menos 2 caracteres")
 	private final String nome;
 	private StatusCategoria status;
-	@Transient	@Autowired
+	@Autowired
 	private CategoriaMapper mapper;
 
 	@Default
@@ -36,9 +36,5 @@ public class CategoriaForm {
 
 	public StatusCategoria getStatus() {
 		return status;
-	}
-
-	public CategoriaMapper getMapper() {
-		return mapper;
 	}
 }
