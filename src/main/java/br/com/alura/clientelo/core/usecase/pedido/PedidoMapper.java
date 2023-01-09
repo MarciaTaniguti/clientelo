@@ -1,8 +1,8 @@
 package br.com.alura.clientelo.core.usecase.pedido;
 
-import br.com.alura.clientelo.api.form.DetalhePedidoForm;
-import br.com.alura.clientelo.api.form.DetalheProdutoForm;
-import br.com.alura.clientelo.api.form.PedidoForm;
+import br.com.alura.clientelo.infra.api.rest.form.DetalhePedidoForm;
+import br.com.alura.clientelo.infra.api.rest.produto.DetalheProdutoForm;
+import br.com.alura.clientelo.infra.api.rest.form.PedidoForm;
 import br.com.alura.clientelo.core.usecase.dto.PedidoDto;
 import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
 import br.com.alura.clientelo.core.entity.pedido.Pedido;

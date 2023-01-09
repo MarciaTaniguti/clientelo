@@ -1,9 +1,7 @@
 package br.com.alura.clientelo.core.usecase.categoria;
 
-import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
-import br.com.alura.clientelo.api.form.CategoriaForm;
+import br.com.alura.clientelo.core.usecase.exception.CategoriaNotFoundException;
 import br.com.alura.clientelo.core.entity.categoria.RepositorioDeCategoria;
-import br.com.alura.clientelo.core.usecase.dto.CategoriaDto;
 import br.com.alura.clientelo.core.usecase.dto.RelatorioVendasPorCategoriaDTO;
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;

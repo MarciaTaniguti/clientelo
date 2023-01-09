@@ -1,15 +1,12 @@
 package br.com.alura.clientelo.core.usecase.produto;
 
-import br.com.alura.clientelo.api.exception.CategoriaNotFoundException;
-import br.com.alura.clientelo.api.exception.ProdutoNotFoundException;
-import br.com.alura.clientelo.api.form.CadastroProdutoForm;
+import br.com.alura.clientelo.core.usecase.exception.CategoriaNotFoundException;
+import br.com.alura.clientelo.core.usecase.exception.ProdutoNotFoundException;
 import br.com.alura.clientelo.core.entity.categoria.RepositorioDeCategoria;
 import br.com.alura.clientelo.core.entity.produto.RepositorioDeProduto;
 import br.com.alura.clientelo.core.usecase.dto.ExibeProdutoDto;
-import br.com.alura.clientelo.core.usecase.dto.ProdutoDto;
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
 import br.com.alura.clientelo.core.entity.produto.Produto;
-import br.com.alura.clientelo.infra.jpa.produto.ProdutoRepositoryJPA;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.api.form;
+package br.com.alura.clientelo.infra.api.rest.produto;
 
 import org.hibernate.validator.constraints.Length;
 

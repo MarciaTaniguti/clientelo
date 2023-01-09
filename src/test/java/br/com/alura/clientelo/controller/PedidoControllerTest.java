@@ -1,12 +1,10 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.api.form.CategoriaForm;
 import br.com.alura.clientelo.core.entity.categoria.Categoria;
-import br.com.alura.clientelo.core.entity.categoria.StatusCategoria;
 import br.com.alura.clientelo.core.usecase.produto.ProdutoService;
 import br.com.alura.clientelo.infra.api.rest.PedidoController;
-import br.com.alura.clientelo.api.form.ItemPedidoForm;
-import br.com.alura.clientelo.api.form.PedidoForm;
+import br.com.alura.clientelo.infra.api.rest.form.ItemPedidoForm;
+import br.com.alura.clientelo.infra.api.rest.form.PedidoForm;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
 import br.com.alura.clientelo.core.entity.cliente.Endereco;
 import br.com.alura.clientelo.core.entity.pedido.item.ItemPedido;
@@ -15,7 +13,7 @@ import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.core.usecase.categoria.CategoriaService;
 import br.com.alura.clientelo.core.usecase.cliente.ClienteService;
 import br.com.alura.clientelo.core.usecase.cliente.EnderecoService;
-import br.com.alura.clientelo.core.usecase.pedido.CrudPedidoService;
+import br.com.alura.clientelo.core.usecase.pedido.PedidoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -51,7 +49,7 @@ public class PedidoControllerTest {
 	@Autowired
 	private ClienteService clienteService;
 	@Autowired
-	private CrudPedidoService pedidoService;
+	private PedidoService pedidoService;
 	@Autowired
 	private EnderecoService enderecoService;
 	@Autowired

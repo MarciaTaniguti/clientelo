@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.api.exception;
+package br.com.alura.clientelo.core.usecase.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

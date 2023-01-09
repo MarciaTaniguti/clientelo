@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.api.form;
+package br.com.alura.clientelo.infra.api.rest.form;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 

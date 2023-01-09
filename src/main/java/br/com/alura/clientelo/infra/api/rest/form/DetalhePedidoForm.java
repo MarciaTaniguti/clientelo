@@ -1,4 +1,7 @@
-package br.com.alura.clientelo.api.form;
+package br.com.alura.clientelo.infra.api.rest.form;
+
+import br.com.alura.clientelo.infra.api.rest.cliente.ClienteForm;
+import br.com.alura.clientelo.infra.api.rest.produto.DetalheProdutoForm;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

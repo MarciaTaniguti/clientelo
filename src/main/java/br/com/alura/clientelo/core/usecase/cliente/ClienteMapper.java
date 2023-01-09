@@ -1,12 +1,11 @@
 package br.com.alura.clientelo.core.usecase.cliente;
 
-import br.com.alura.clientelo.api.form.ClienteForm;
+import br.com.alura.clientelo.infra.api.rest.cliente.ClienteForm;
 import br.com.alura.clientelo.core.entity.cliente.Endereco;
 import br.com.alura.clientelo.core.usecase.dto.ClienteDto;
 import br.com.alura.clientelo.core.entity.cliente.Cliente;
 import br.com.alura.clientelo.core.usecase.dto.EnderecoDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 

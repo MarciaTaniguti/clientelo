@@ -1,6 +1,5 @@
 package br.com.alura.clientelo.core.entity.categoria;
 
-import br.com.alura.clientelo.api.form.CategoriaForm;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;

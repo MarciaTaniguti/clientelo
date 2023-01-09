@@ -20,7 +20,7 @@ public class Pedido {
     private Cliente cliente;
     @Embedded
     private PedidoDesconto desconto = new PedidoDesconto();
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.MERGE)
     private List<ItemPedido> itens = new ArrayList<>();
     @Column(name = "total_gasto")
     private BigDecimal valorTotalPago;
@@ -100,6 +100,10 @@ public class Pedido {
         return valorTotalCompra.multiply(desconto.getDesconto());
     }
 
+    public void replaceItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
@@ -109,7 +113,8 @@ public class Pedido {
                 ", desconto=" + desconto.getDesconto() +
                 ", tipoDesconto=" + desconto.getTipoDesconto() +
                 ", itens=" + itens +
-                ", total=" + valorTotalPago +
+                ", valorTotalPago=" + valorTotalPago +
+                ", valorTotalCompra=" + valorTotalCompra +
                 '}';
     }
 }

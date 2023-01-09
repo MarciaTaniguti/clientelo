@@ -1,12 +1,8 @@
-package br.com.alura.clientelo.api.form;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysql.cj.log.Log;
+package br.com.alura.clientelo.infra.api.rest.form;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoForm {
@@ -27,9 +23,5 @@ public class PedidoForm {
 
 	public List<ItemPedidoForm> getItens() {
 		return itens;
-	}
-
-	public void replaceItens(List<ItemPedidoForm> itens) {
-		this.itens = itens;
 	}
 }

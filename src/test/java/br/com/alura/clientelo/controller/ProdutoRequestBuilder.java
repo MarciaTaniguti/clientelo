@@ -1,15 +1,12 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.api.form.CadastroProdutoForm;
+import br.com.alura.clientelo.infra.api.rest.produto.CadastroProdutoForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.net.URI;
 import java.net.URISyntaxException;

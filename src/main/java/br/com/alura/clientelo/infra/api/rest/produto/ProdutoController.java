@@ -1,6 +1,5 @@
 package br.com.alura.clientelo.infra.api.rest.produto;
 
-import br.com.alura.clientelo.api.form.CadastroProdutoForm;
 import br.com.alura.clientelo.core.entity.produto.Produto;
 import br.com.alura.clientelo.core.usecase.dto.ExibeProdutoDto;
 import br.com.alura.clientelo.core.usecase.dto.ProdutoDto;
@@ -16,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 
@@ -31,17 +31,22 @@ public class ProdutoController {
 	@Transactional
 	public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid CadastroProdutoForm produtoForm) {
 		Produto produto = produtoService.cadastra(mapper.toModel(produtoForm));
-		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDto(produto));
+		return ResponseEntity
+				.created(ServletUriComponentsBuilder
+					.fromCurrentRequest()
+					.path("/{id}")
+					.buildAndExpand(produto.getId()).toUri())
+				.body(mapper.toDto(produto));
 	}
 
 	@GetMapping
 	public ResponseEntity<Page<ExibeProdutoDto>> listaProdutos(@SortDefault(sort = "nome") @PageableDefault(size = 5) final Pageable pageable) {
-		return ResponseEntity.status(HttpStatus.OK).body(produtoService.listaTodos(pageable));
+		return ResponseEntity.ok(produtoService.listaTodos(pageable));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProdutoDto> buscaProduto(@PathVariable Long id) {
 		Produto produto = produtoService.buscaPorId(id);
-		return ResponseEntity.status(HttpStatus.OK).body(mapper.toDto(produto));
+		return ResponseEntity.ok(mapper.toDto(produto));
 	}
 }

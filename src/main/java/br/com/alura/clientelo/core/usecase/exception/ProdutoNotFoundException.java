@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.api.exception;
+package br.com.alura.clientelo.core.usecase.exception;
 
 import java.io.Serial;
 

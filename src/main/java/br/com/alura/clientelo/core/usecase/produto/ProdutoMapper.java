@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.core.usecase.produto;
 
-import br.com.alura.clientelo.api.form.CadastroProdutoForm;
+import br.com.alura.clientelo.infra.api.rest.produto.CadastroProdutoForm;
 import br.com.alura.clientelo.core.usecase.dto.ProdutoDto;
 import br.com.alura.clientelo.core.entity.produto.Produto;
 import org.mapstruct.Mapper;

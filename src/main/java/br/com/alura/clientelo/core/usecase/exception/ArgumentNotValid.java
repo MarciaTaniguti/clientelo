@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.api.exception;
+package br.com.alura.clientelo.core.usecase.exception;
 
 public record ArgumentNotValid(
 	String paramName,

@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.core.usecase.pedido;
+package br.com.alura.clientelo.core.usecase;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

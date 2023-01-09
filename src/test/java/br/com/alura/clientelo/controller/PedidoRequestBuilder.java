@@ -1,7 +1,6 @@
 package br.com.alura.clientelo.controller;
 
-import br.com.alura.clientelo.api.form.CadastroProdutoForm;
-import br.com.alura.clientelo.api.form.PedidoForm;
+import br.com.alura.clientelo.infra.api.rest.form.PedidoForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

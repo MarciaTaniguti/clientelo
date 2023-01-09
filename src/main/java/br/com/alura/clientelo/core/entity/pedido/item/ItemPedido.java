@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.core.entity.pedido.item;
 
-import br.com.alura.clientelo.core.usecase.pedido.Default;
+import br.com.alura.clientelo.core.usecase.Default;
 import br.com.alura.clientelo.core.entity.pedido.Pedido;
 import br.com.alura.clientelo.core.entity.produto.Produto;
 
@@ -109,4 +109,18 @@ public class ItemPedido {
 				", valorPago=" + valorPago +
 				'}';
 	}
+
+	//	@Override
+//	public String toString() {
+//		return "ItemPedido{" +
+//				"id=" + id +
+//				", precoUnitario=" + precoUnitario +
+//				", quantidade=" + quantidade +
+//				", produto=" + produto +
+//				", pedido=" + pedido.getId() +
+//				", desconto=" + desconto.getDesconto() +
+//				", tipoDesconto=" + desconto.getTipoDesconto() +
+//				", valorPago=" + valorPago +
+//				'}';
+//	}
 }

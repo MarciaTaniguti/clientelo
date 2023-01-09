@@ -1,15 +1,17 @@
 package br.com.alura.clientelo.infra.api.rest;
 
-import br.com.alura.clientelo.api.form.DetalhePedidoForm;
-import br.com.alura.clientelo.api.form.PedidoForm;
+import br.com.alura.clientelo.core.entity.pedido.Pedido;
+import br.com.alura.clientelo.infra.api.rest.form.DetalhePedidoForm;
+import br.com.alura.clientelo.infra.api.rest.form.PedidoForm;
 import br.com.alura.clientelo.core.usecase.pedido.PedidoMapper;
 import br.com.alura.clientelo.core.usecase.dto.PedidoDto;
-import br.com.alura.clientelo.core.usecase.pedido.CrudPedidoService;
+import br.com.alura.clientelo.core.usecase.pedido.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,25 +20,32 @@ import java.util.List;
 @RequestMapping(path = "/api/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoController {
 	@Autowired
-	private CrudPedidoService pedidoService;
+	private PedidoService pedidoService;
 	@Autowired
 	private PedidoMapper mapper;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoForm pedidoForm) {
-		PedidoDto pedidoCriado = pedidoService.cadastrar(pedidoForm);
-		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCriado);
+		Pedido pedido = mapper.toModel(pedidoForm);
+		pedidoService.cadastrar(pedido);
+		return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(pedido.getId())
+				.toUri())
+				.body(mapper.toDto(pedido));
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<DetalhePedidoForm> exibirDetalhes(@PathVariable Long id) {
-		DetalhePedidoForm detalhePedidoForm = pedidoService.buscarDetalhePedido(id);
-		return ResponseEntity.status(HttpStatus.OK).body(detalhePedidoForm);
+		Pedido pedido = pedidoService.buscarDetalhePedido(id);
+		DetalhePedidoForm detalhePedidoForm = mapper.toDetalhePedidoForm(pedido);
+		detalhePedidoForm.setDescontos(pedido.getValorDesconto());
+		return ResponseEntity.ok(detalhePedidoForm);
 	}
 
 	@GetMapping
 	public ResponseEntity<List<PedidoDto>> listarTodos() {
-		List<PedidoDto> detalhePedidoForm = pedidoService.listarTodos();
-		return ResponseEntity.status(HttpStatus.OK).body(detalhePedidoForm);
+		List<Pedido> detalhePedidoForm = pedidoService.listarTodos();
+		return ResponseEntity.ok(mapper.toDto(detalhePedidoForm));
 	}
 }

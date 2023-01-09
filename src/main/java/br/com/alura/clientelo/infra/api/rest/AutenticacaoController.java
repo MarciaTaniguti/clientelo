@@ -1,6 +1,6 @@
 package br.com.alura.clientelo.infra.api.rest;
 
-import br.com.alura.clientelo.api.form.LoginForm;
+import br.com.alura.clientelo.infra.api.rest.form.LoginForm;
 import br.com.alura.clientelo.infra.config.security.TokenService;
 import br.com.alura.clientelo.core.usecase.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
